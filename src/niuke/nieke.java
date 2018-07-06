@@ -17,9 +17,5 @@ public class nieke extends ex{
 
     }
 
-    @Override
-    public int  over(int x, int y) {
-        super.over(x, y);
-        return 1;
-    }
+
 }

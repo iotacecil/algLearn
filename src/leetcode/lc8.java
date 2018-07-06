@@ -1,6 +1,6 @@
 package leetcode;
 
-import com.intellij.util.containers.InternalIterator;
+
 
 import java.util.stream.Collector;
 
