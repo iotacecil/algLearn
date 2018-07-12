@@ -1,7 +1,6 @@
 package leetcode;
 
 
-
 public class lc125 {
     public static boolean ppp(String s) {
         if(s==null||s.length()<2)return true;

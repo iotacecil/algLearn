@@ -5,6 +5,23 @@ package leetcode;
 import java.util.*;
 
 public class lc120 {
+//    public int minimumTotal72(List<List<Integer>> T) {
+//        if(T == null) return 0;
+//        int level = T.size();
+//        //0=0+1,1=1+2,2=2+3
+//        // T[2][0] = min(T[3][0]+T[3][1]);
+//        //int i = 2 j=[0-]
+//        if(level<2)return T.get(0).get(0);
+//
+//
+//        for(int i = level-2;level>=0;level--){
+//            for(int j =0;j<=i;j++){
+//                T[i][j]+=Math.min(T[i+1][j],T[i+1][j+1]);
+//
+//            }
+//        }
+//        return T[0][0];
+//    }
     public static int minimumTotal(List<List<Integer>> triangle) {
         int[] A = new int[triangle.size()+1];
         String a = "aaaa";
