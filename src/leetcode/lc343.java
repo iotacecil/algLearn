@@ -6,6 +6,40 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class lc343 {
+    static int[] memo;
+    private static int ib(int n){
+        if(memo[n]!=-1)return memo[n];
+        if(n<=1)return n;
+        if(n==2)return 1;
+        int res = -1;
+        for(int i =1;i<n;i++){
+            System.out.println("i="+i);
+            res = Math.max(res,Math.max(i*(n-i),i*ib(n-i)));
+            System.out.println(memo.length);
+            memo[n] = res;
+        }
+        return res;
+    }
+    public static int integerBreak3(int n) {
+
+        memo= new int[n+1];
+        for(int i=0;i<memo.length;i++){
+            memo[i]=-1;
+        }
+        return ib(n);
+    }
+    //超时
+    public static int integerBreak2(int n) {
+
+        if(n<=1)return n;
+        if(n==2)return 1;
+        int res = -1;
+        for(int i =1;i<n;i++){
+            res = Math.max(res,Math.max(i*(n-i),i*integerBreak(n-i)));
+
+        }
+        return res;
+    }
     public static int integerBreak(int n) {
         int[] dp = new int[n + 1];
         dp[1] = 1;
@@ -23,7 +57,9 @@ public class lc343 {
     }
 
     public static void main(String[] args) {
-        int i = integerBreak(10);
+//        int i = integerBreak(10);
+//       memo = new int[11];
+        int i = integerBreak3(10);
         System.out.println(i);
     }
 }

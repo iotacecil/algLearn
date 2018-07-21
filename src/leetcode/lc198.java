@@ -34,10 +34,34 @@ public class lc198 {
         }
         return dp2;
     }
+    int rob33(int[] num){
+        return rob3(num,num.length);
+    }
+    int rob3(int num[], int n) {
+        int a = 0;
+        int b = 0;
+
+        for (int i=0; i<n; i++)
+        {
+            //
+            if (i%2==0)
+            {
+                a = Math.max(a+num[i], b);
+            }
+            else
+            {
+                b = Math.max(a, b+num[i]);
+            }
+        }
+
+        return Math.max(a, b);
+    }
 
     public static void main(String[] args) {
         Thread.currentThread();
         int[] a=new int[10];
+        lc198 sl = new lc198();
+        System.out.println(sl.rob33(new int[]{9, 0, 0, 9}));
         System.out.println(Arrays.toString(a));
 
     }
