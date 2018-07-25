@@ -31,6 +31,7 @@ public class lc464 {
                 hmap.put(visited,true);
                 return true;
             }
+
             state[i]=0;
         }
 
@@ -73,6 +74,7 @@ public class lc464 {
     public static void main(String[] args) {
      lc464 sl = new lc464();
         System.out.println(sl.canIWin(10, 11));
+
     }
 
 }
