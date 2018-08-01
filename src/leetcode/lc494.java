@@ -4,40 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class lc494 {
+    //key的编码问题
+    Map<String, Integer> map;
           public int findTargetSumWays2(int[] nums, int S) {
  		if (nums == null || nums.length == 0) {
  			return 0;
  		}
- 		return helper(nums, 0, 0, S, new HashMap<>());
+ 		map = new HashMap<>();
+ 		return helper(nums, 0, S);
  	}
 
-     	private int helper(int[] nums, int index, int sum,
- 			int S, Map<String, Integer> map) {
+     	private int helper(int[] nums, int index, int sum) {
  		// 避免数字是重复，无法找到截断点
- 		String encodeString = index + "->" + sum;
+ 		String encodeString = index + "" + sum;
  		if (map.containsKey(encodeString)) {
  			return map.get(encodeString);
  		}
  		if (index == nums.length) {
- 			if (sum == S) {
+ 			if (sum==0) {
  				return 1;
  			} else {
  				return 0;
  			}
  		}
  		int curNum = nums[index];
- 		int add = helper(nums, index + 1, sum - curNum, S, map);
- 		int minus = helper(nums, index + 1, sum + curNum, S, map);
- 		map.put(encodeString, add + minus);
+ 		int res = helper(nums, index + 1, sum - curNum)+helper(nums, index + 1, sum + curNum);
+ 		map.put(encodeString, res);
             System.out.println(map);
-            return add + minus;
+            return res;
  	}
 //    Map<String,Integer> m_ = new HashMap<>();
     public int findTargetSumWays(int[] nums, int S) {
         // if (nums.length == 0) return 0;
-        return dfs(nums, S, 0,new HashMap<>());
+        map = new HashMap<>();
+        return dfs(nums, S, 0);
     }
-    private int dfs(int[] nums, int S, int pos,Map<String,Integer> map){
+    private int dfs(int[] nums, int S, int pos){
         String key = pos+""+S;
         if(map.containsKey(key)){
             return map.get(key);
@@ -46,7 +48,7 @@ public class lc494 {
             if(S==0)return 1;
             else return 0;
         }
-        int res =dfs(nums, S+nums[pos], pos+1,map)+dfs(nums, S- nums[pos], pos+1,map);
+        int res =dfs(nums, S-nums[pos], pos+1)+dfs(nums, S+nums[pos], pos+1 );
         map.put(key,res);
         System.out.println(map);
         return res;

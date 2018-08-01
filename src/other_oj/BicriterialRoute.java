@@ -1,4 +1,4 @@
-package hdu;
+package other_oj;
 //https://blog.csdn.net/NOIAu/article/details/78222748
 //4 5 1 4
 //

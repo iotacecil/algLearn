@@ -1,5 +1,4 @@
-package hdu;
-import java.util.StringTokenizer;
+package other_oj;
 
 /*
 http://acm.hdu.edu.cn/showproblem.php?pid=1864

@@ -1,4 +1,4 @@
-package hdu;
+package other_oj;
 
 import java.util.*;
 //不知道为什么的wrong answer
