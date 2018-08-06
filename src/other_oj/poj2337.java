@@ -39,6 +39,7 @@ public class poj2337 {
     }
    static private void permute(List<String[]> rst,String[] words,int s){
         if(s==words.length){
+            //优化把check放到这，再放个finish的flag？
             String[] ans = words.clone();
             rst.add(ans);
             return;
