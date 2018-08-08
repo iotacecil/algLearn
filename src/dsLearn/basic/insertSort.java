@@ -1,4 +1,4 @@
-package niuke.basic;
+package dsLearn.basic;
 
 import java.util.Arrays;
 

@@ -63,8 +63,9 @@ public class lc315 {
         }
     }
 
+
     public static void main(String[] args) {
         lc315 sl = new lc315();
-        sl.countSmaller(new int[]{5,2,6,1});
+        System.out.println(sl.countSmaller(new int[]{5, 2, 6, 1}));
     }
 }

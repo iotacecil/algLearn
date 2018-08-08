@@ -1,12 +1,66 @@
 package leetcode;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
+// n courses you have to take, labeled from 0 to n-1.
+//2, [[1,0],[0,1]]
 public class lc207 {
+    //算法4
+    private boolean[] marked;
+//    private int[] edgeTo;
+//    private Deque<Integer> cycle;//环
+    boolean cycle=true;
+    private boolean[] onStack;
+    public boolean cycle(int numCourses, int[][] prerequisites) {
+        onStack = new boolean[numCourses];
+//        edgeTo = new int[numCourses];
+        marked =new boolean[numCourses];
+        List<Integer>[] graph=new ArrayList[numCourses];
+        for (int i = 0; i <numCourses ; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge :prerequisites) {
 
+            graph[edge[0]].add(edge[1]);
+
+        }
+        System.out.println(Arrays.toString(graph));
+        for (int i = 0; i < numCourses; i++) {
+            if(!marked[i])dfs(graph,i);
+        }
+        return cycle;
+    }
+    private void dfs(List<Integer>[] graph,int v){
+//        System.out.println(Arrays.toString(onStack));
+        if(graph[v].size()<1)return;
+
+        onStack[v] =true;
+        marked[v] =true;
+
+        for(int w:graph[v]){
+
+//            if(cycle!=null) return;
+            if(!marked[w]){
+//                edgeTo[w] = v;
+                dfs(graph,w);
+            }
+            else if(onStack[w]){
+                System.out.println("v:"+v+"w:"+w);
+                System.out.println(Arrays.toString(onStack));
+                cycle=false;
+                return;
+//                cycle = new ArrayDeque<>();
+//                for (int x = v; x !=w ; x=edgeTo[x]) {
+//                    cycle.push(x);
+//                }
+//                cycle.push(w);
+//                cycle.push(v);
+            }
+
+        }
+        onStack[v] =false;
+    }
 
 
 
@@ -70,6 +124,11 @@ public class lc207 {
 
     public static void main(String[] args) {
         lc207 sl = new lc207();
-        System.out.println(sl.canFinish(2, new int[][]{{1, 0}, {0, 1}}));
+//        System.out.println(sl.cycle(4, new int[][]{{0, 3}, {1, 3}, {3, 2}, {2, 1}}));
+//        System.out.println(sl.cycle(2, new int[][]{{1,0},{0,1}}));
+        System.out.println(sl.cycle(4, new int[][]{{2,0},{1,0},{3,1},{3,2},{1,3}}));
+
+        //System.out.println(sl.canFinish(2, new int[][]{{1, 0}, {0, 1}}));
+
     }
 }

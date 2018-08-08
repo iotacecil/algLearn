@@ -1,10 +1,10 @@
-package niuke.basic;
+package dsLearn.basic;
 
 import java.util.Arrays;
 
 public class bubbleSort {
     //复杂度：等差数列n+ n-1 + n-2 +...+1->n(n+1)/2 ->n^2
-    private void bubble(int[] arr){
+    public void bubble(int[] arr){
         if(arr== null|| arr.length<2){
             return;
         }

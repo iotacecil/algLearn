@@ -1,6 +1,8 @@
-package bdstar;
+package dsLearn.basic;
 
-public class zg01 {
+public class KruskalMST {
+
+
     public static void main(String[] args) {
 
     }
