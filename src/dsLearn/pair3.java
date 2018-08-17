@@ -2,6 +2,10 @@ package dsLearn;
 
 public class pair3 {
     //从a到b的边，权值是w
+
+
+
+
     public int w,a,b;
 
     public pair3(int w, int a, int b) {
