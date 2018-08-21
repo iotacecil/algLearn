@@ -9,7 +9,15 @@ class Interval {
      int end;
       Interval() { start = 0; end = 0; }
      Interval(int s, int e) { start = s; end = e; }
- }
+
+    @Override
+    public String toString() {
+        return "Interval{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
+    }
+}
 
 public class SummaryRanges {
     TreeMap<Integer,Interval> treeMap;

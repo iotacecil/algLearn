@@ -1,4 +1,4 @@
-package concurrentLearn;
+package javaquickTest;
 
 import java.util.concurrent.*;
 

@@ -6,6 +6,34 @@ import java.util.*;
 // n courses you have to take, labeled from 0 to n-1.
 //2, [[1,0],[0,1]]
 public class lc207 {
+    private boolean hasCycle;
+    public boolean cycle2(int numCourses, int[][] prerequisites) {
+
+//        edgeTo = new int[numCourses];
+//        if(prerequisites.length<1)return true;
+        marked =new boolean[numCourses];
+        List<Integer>[] graph=new ArrayList[numCourses];
+        for (int i = 0; i <numCourses ; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge :prerequisites) {
+
+            graph[edge[0]].add(edge[1]);
+
+        }
+        System.out.println(Arrays.toString(graph));
+        for (int i = 0; i < numCourses; i++) {
+            if(!marked[i])dfs(graph,i,i);
+        }
+        return hasCycle;
+    }
+    private void dfs(List<Integer>[] G,int v,int u){
+        marked[v] = true;
+        for(int w:G[v]){
+            if(!marked[w])dfs(G,w,v);
+            else if(w!=u)hasCycle=true;
+        }
+    }
     //算法4
     private boolean[] marked;
 //    private int[] edgeTo;

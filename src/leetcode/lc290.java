@@ -1,13 +1,28 @@
-//package leetcode;
-//
-//import com.intellij.codeInsight.template.postfix.templates.SoutPostfixTemplate;
-//
-//import java.util.Arrays;
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//public class lc290 {
-//
+package leetcode;
+
+
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class lc290 {
+    public boolean wordPattern(String pattern,String str){
+        String[] words = str.split(" ");
+        if(words.length!=pattern.length()){
+            return false;
+        }
+        Map index = new HashMap();
+        for(Integer i =0;i<words.length;i++){
+            Object put = index.put(pattern.charAt(i), i);
+            Object put1 = index.put(words[i], i);
+            System.out.println(put);
+            System.out.println(put1);
+            if(put!=put1)
+                return false;
+        }
+        return true;
+    }
 //        public static boolean wordPattern(String pattern, String str) {
 //            String[] strlist = str.split(" ");
 //            int strlen = strlist.length;
@@ -40,10 +55,12 @@
 //            return true;
 //
 //        }
-//
-//    public static void main(String[] args) {
+
+    public static void main(String[] args) {
+        lc290 sl = new lc290();
+        System.out.println(sl.wordPattern("abba", "dog cat cat fish"));
 //        boolean b = wordPattern("abba", "dog cat cat fish");
 //        System.out.println(b);
-//
-//    }
-//}
+
+    }
+}
