@@ -1,5 +1,9 @@
 package leetcode;
 
+import sun.security.rsa.RSASignature;
+
+import java.security.MessageDigest;
+
 public class lc476 {
     public int comp(int num){
         int mask = ~0;
@@ -13,6 +17,7 @@ public class lc476 {
     }
 
     public static void main(String[] args) {
+       
         String two = "100010101010";
         int i = Integer.parseInt(two, 2);
         Integer valueOf = Integer.valueOf(two, 2);
