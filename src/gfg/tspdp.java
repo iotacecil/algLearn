@@ -1,5 +1,7 @@
 package gfg;
 
+import sun.text.resources.cldr.ia.FormatData_ia;
+
 import java.util.*;
 
 public class tspdp {
@@ -38,33 +40,91 @@ public class tspdp {
     static int budget = 150;
 
     static int maskmost = 1<<n;
+
     //当前花费时间下,访问mask个poi的profit
     //
+    class node{
+
+    }
     static double[][]dp = new double[budget+1][maskmost];
-    static double tsp(int budget,int mask,int pos,double score){
-        if(budget<0){
-            return -1;
+    static void init(){
+        add();
+        for (int i = 0; i <29 ; i++) {
+            dp[cost[0][0]][1<<i] = profit(i);
+
         }
-        if(budget==0)return profit(pos);
-        if(dp[budget][mask]!=-1)return dp[budget][mask];
-//        double score =profit(0);
+    }
 
-            for (int j = 1; j < n; j++) {
-                for (int i = budget; i >=0 ; i--) {
-                //1
-                if((mask&(1<<j))==0&&(i-cost[pos][j]>=0)){
-                    mask|=(1<<j);
-//                    int newmask = mask|(1<<j);
-                    score+=Math.max(score,profit(j)+tsp(budget-cost[pos][j],mask,j,score));
-                    mask&=~(1<<j);
+    static private  void tsp(int mask){
 
-                }
+        for (int i = 1; i <n ; i++) {
+            for (int j = 0; j <budget ; j++) {
+                 mask|=(1<<i);//11
+
+
+
             }
 
         }
-        return dp[budget][mask]=score;
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    static double tsp(int budget,int mask,int pos,double score){
+//        if(budget<0){
+//            return -1;
+//        }
+//        if(budget==0)return profit(pos);
+//        if(dp[budget][mask]!=-1)return dp[budget][mask];
+////        double score =profit(0);
+//
+//            for (int j = 1; j < n; j++) {
+//                for (int i = budget; i >=0 ; i--) {
+//                //1
+//                if((mask&(1<<j))==0&&(i-cost[pos][j]>=0)){
+//                    mask|=(1<<j);
+////                    int newmask = mask|(1<<j);
+//                    score+=Math.max(score,profit(j)+tsp(budget-cost[pos][j],mask,j,score));
+//                    mask&=~(1<<j);
+//
+//                }
+//            }
+//
+//        }
+//        return dp[budget][mask]=score;
+//
+//    }
 
 
 
