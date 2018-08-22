@@ -8,12 +8,12 @@ public class tspbruteTest {
     static Logger logger = Logger.getLogger("gfg.Logger");
     static int[][] cost;
     static int n = 11;
-    static  Random rnd = new Random();
+    static  Random rnd = new Random(1024);
     static int[] poiIDs;
     static double[] weight;
     static double[] popular;
     static int start = 0;
-    static int budget = 120;
+    static int budget = 300;
     static double ita =.5;
 
     static public void init(){
@@ -35,30 +35,33 @@ public class tspbruteTest {
             popular[i] = rnd.nextDouble();
 
         }
-        logger.info("完成随机初始化");
+//        logger.info("完成随机初始化");
 
 
     }
 
     //start =0 生成1,2,3->[[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
     //复杂度2^n
-    private static List<List<Integer>> subpermutation(){
-        List<List<Integer>> rst = new ArrayList<>();
-        back(rst,new ArrayList<>(),1);
-        logger.info("完成生成subset");
-        return rst;
-    }
-    private static void back(List<List<Integer>> rst,List<Integer> item,int idx){
-        if(idx==poiIDs.length){
-            rst.add(new ArrayList<>(item));
-            return;
+    public static List<List<Integer>> subpermutation() {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<Integer>());
+
+
+        for(int i : poiIDs) {
+            if(i == 0 )continue;
+            List<List<Integer>> tmp = new ArrayList<>();
+            for(List<Integer> sub : res) {
+                List<Integer> a = new ArrayList<>(sub);
+                a.add(i);
+                tmp.add(a);
+            }
+            res.addAll(tmp);
         }
-        for (int i = idx; i <poiIDs.length ; i++) {
-            item.add(poiIDs[i]);
-            back(rst,item,i+1);
-            item.remove(item.size()-1);
-        }
+        res.remove(0);
+//        logger.info("完成生成subset");
+        return res;
     }
+
     static double profit(int poiID){
         return ita * popular[poiID] + (1 - ita) * weight[poiID];
     }
@@ -89,7 +92,7 @@ public class tspbruteTest {
                 }
             }
         }
-        logger.info("完成"+route+"permutation");
+//        logger.info("完成"+route+"permutation");
         return res;
 
     }
@@ -113,7 +116,7 @@ public class tspbruteTest {
             }
 
         }
-        logger.info("完成"+routes.get(0)+"的所有排序的最短路径");
+//        logger.info("完成"+routes.get(0)+"的所有排序的最短路径");
         return min_path;
     }
     static void start(){
@@ -122,7 +125,7 @@ public class tspbruteTest {
         List<List<Integer>> subpermutation = subpermutation();
         HashMap<List<Integer>, Double> score = subrouteScore(subpermutation);
         double bestScore = 0;
-
+        List<Integer> outRoute = new ArrayList<>();
         for(List<Integer> subroute:subpermutation){
             List<List<Integer>> permutation = permutation(subroute);
             bestroute= new ArrayList<>();
@@ -130,18 +133,19 @@ public class tspbruteTest {
             if (bestCost<=budget) {
                 if(score.get(subroute)>bestScore){
                     bestScore = score.get(subroute);
+                    outRoute = bestroute;
                 }
                 System.out.println("----------");
-                System.out.println("少于120分钟的点集 兴趣评分是");
+                System.out.println("少于"+budget+"分钟的点集 兴趣评分是");
                 System.out.println(subroute+" "+score.get(subroute));
                 System.out.println("最短路线是");
                 System.out.println(bestroute+" "+bestCost);
                 System.out.println("----------");
 
+
             }
-
-
         }
+        System.out.println("实验结果"+outRoute+" "+bestScore);
     }
     public static void main(String[] args) {
         init();

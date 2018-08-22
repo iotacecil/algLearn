@@ -24,24 +24,44 @@ public class tspbrute {
 
 
     //start =0 生成1,2,3->[[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
-   private static List<List<Integer>> subpermutation(){
-        List<List<Integer>> rst = new ArrayList<>();
-        back(rst,new ArrayList<>(),1);
-        return rst;
-   }
+
+    public static List<List<Integer>> subpermutation() {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<Integer>());
+
+
+        for(int i : poiIDs) {
+            if(i == 0 )continue;
+            List<List<Integer>> tmp = new ArrayList<>();
+            for(List<Integer> sub : res) {
+                List<Integer> a = new ArrayList<>(sub);
+                a.add(i);
+                tmp.add(a);
+            }
+            res.addAll(tmp);
+        }
+        res.remove(0);
+
+        return res;
+    }
+//   private static List<List<Integer>> subpermutation(){
+//        List<List<Integer>> rst = new ArrayList<>();
+//        back(rst,new ArrayList<>(),1);
+//        return rst;
+//   }
     static int[] poiIDs= {0,1,2,3,4};
 
-    private static void back(List<List<Integer>> rst,List<Integer> item,int idx){
-        if(idx==poiIDs.length){
-            rst.add(new ArrayList<>(item));
-            return;
-        }
-       for (int i = idx; i <poiIDs.length ; i++) {
-           item.add(poiIDs[i]);
-           back(rst,item,i+1);
-           item.remove(item.size()-1);
-       }
-   }
+//    private static void back(List<List<Integer>> rst,List<Integer> item,int idx){
+//        if(idx==poiIDs.length){
+//            rst.add(new ArrayList<>(item));
+//            return;
+//        }
+//       for (int i = idx; i <poiIDs.length ; i++) {
+//           item.add(poiIDs[i]);
+//           back(rst,item,i+1);
+//           item.remove(item.size()-1);
+//       }
+//   }
     static int n = 5;
     static double ita = .5;
     static double[][] dp = new double[1<<n][n];
@@ -51,6 +71,7 @@ public class tspbrute {
     static HashMap<List<Integer>,Double> subrouteScore(List<List<Integer>> sub){
        HashMap<List<Integer>,Double> route2score = new HashMap<List<Integer>, Double>();
         for(List<Integer> route:sub){
+            //加上起点
             double score = profit(0);
             for(int poiID:route){
                 score+=profit(poiID);
@@ -109,7 +130,9 @@ public class tspbrute {
         add();
         System.out.println(Arrays.deepToString(cost));
         List<List<Integer>> subpermutation = subpermutation();
+        System.out.println(subpermutation);
         HashMap<List<Integer>, Double> score = subrouteScore(subpermutation);
+        System.out.println(score);
         double bestScore = 0;
 
         for(List<Integer> subroute:subpermutation){
@@ -121,7 +144,7 @@ public class tspbrute {
                     bestScore = score.get(subroute);
                 }
                 System.out.println("----------");
-                System.out.println("少于120分钟的点集 兴趣评分是");
+                System.out.println("少于"+budget+"分钟的点集 兴趣评分是");
                 System.out.println(subroute+" "+score.get(subroute));
                 System.out.println("最短路线是");
                 System.out.println(bestroute+" "+bestCost);
