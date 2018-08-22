@@ -41,27 +41,28 @@ public class tspdp {
     //当前花费时间下,访问mask个poi的profit
     //
     static double[][]dp = new double[budget+1][maskmost];
-    static double tsp(int budget,int mask,int pos){
+    static double tsp(int budget,int mask,int pos,double score){
         if(budget<0){
             return -1;
         }
         if(budget==0)return profit(pos);
         if(dp[budget][mask]!=-1)return dp[budget][mask];
-        double score =.0;
-        for (int i = 0; i <budget ; i++) {
+//        double score =profit(0);
+
             for (int j = 1; j < n; j++) {
+                for (int i = budget; i >=0 ; i--) {
                 //1
-                if((mask&(1<<j))==0){
+                if((mask&(1<<j))==0&&(i-cost[pos][j]>=0)){
                     mask|=(1<<j);
 //                    int newmask = mask|(1<<j);
-                    score = Math.max(score,profit(j)+tsp(budget-cost[pos][j],mask,j));
+                    score+=Math.max(score,profit(j)+tsp(budget-cost[pos][j],mask,j,score));
                     mask&=~(1<<j);
 
                 }
             }
 
         }
-        return dp[budget][mask] = score;
+        return dp[budget][mask]=score;
 
     }
 
@@ -79,7 +80,7 @@ public class tspdp {
             }
 
         }
-        System.out.println(tsp(150, 1, 0));
+        System.out.println(tsp(150, 1, 0,profit(0)));
 
 
     }
