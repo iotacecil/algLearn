@@ -7,12 +7,12 @@ import java.util.*;
 public class tspdp {
 
     static int[][] cost = {
-            { 0, 10, 15, 20 },
-            { 10, 0, 35, 25 },
-            { 15, 35, 0, 30 },
-            { 20, 25, 30, 0 }};
-
-    static int[] visited = {30,50,20,10};
+            { 0, 10, 15, 20,40 },
+            { 10, 0, 35, 25,20 },
+            { 15, 35, 0, 30,25 },
+            { 20, 25, 30, 0,45 },
+            { 30, 10, 15, 20,0 }};
+    static int[] visited = {30,50,20,10,5};
     private static void add(){
         for (int i = 0; i <cost.length ; i++) {
             for (int j = 0; j <cost[0].length ; j++) {
@@ -21,11 +21,11 @@ public class tspdp {
             }
         }
     }
-    static double[] popular = {.4,.2,.3,.1};
-    static double[] weight = {.2,.2,.3,.3};
+    static double[] popular = {.4,.2,.3,.1,.3};
+    static double[] weight = {.2,.2,.3,.3,.5};
 
 
-    static int[] poiIDs= {0,1,2,3};
+    static int[] poiIDs= {0,1,2,3,4};
 
 
     static int n = 5;
@@ -56,9 +56,6 @@ public class tspdp {
     }
     //mask = {0001,0010,0100,1000}
 
-    static void tspinoreder(int mask) {
-
-    }
 
     //5 10000 0~4 123
    static int[][] dp;

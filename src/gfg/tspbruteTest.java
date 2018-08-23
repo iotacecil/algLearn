@@ -1,7 +1,7 @@
 package gfg;
 
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
+
 import java.util.logging.Logger;
 
 public class tspbruteTest {
@@ -13,7 +13,7 @@ public class tspbruteTest {
     static double[] weight;
     static double[] popular;
     static int start = 0;
-    static int budget = 300;
+    static int budget = 500;
     static double ita =.5;
 
     static public void init(){
@@ -26,10 +26,10 @@ public class tspbruteTest {
             poiIDs[i] = i;
             for (int j = 0; j <n ; j++) {
                 if(i==j){
-                    cost[i][j] = rnd.nextInt(30)+10;
+                    cost[i][j] = rnd.nextInt(30)+20;
                     continue;
                 }
-                cost[i][j] = rnd.nextInt(50)+5;
+                cost[i][j] = rnd.nextInt(50)+50;
             }
             weight[i] = rnd.nextDouble();
             popular[i] = rnd.nextDouble();
@@ -122,9 +122,16 @@ public class tspbruteTest {
     static void start(){
 
         System.out.println(Arrays.deepToString(cost));
+        System.out.println(Arrays.toString(popular));
+        System.out.println(Arrays.toString(weight));
+        System.out.println("以上是输入");
         List<List<Integer>> subpermutation = subpermutation();
+
+//        System.out.println(subpermutation);
         HashMap<List<Integer>, Double> score = subrouteScore(subpermutation);
+//        System.out.println(score);
         double bestScore = 0;
+        int outcost = Integer.MAX_VALUE;
         List<Integer> outRoute = new ArrayList<>();
         for(List<Integer> subroute:subpermutation){
             List<List<Integer>> permutation = permutation(subroute);
@@ -133,6 +140,7 @@ public class tspbruteTest {
             if (bestCost<=budget) {
                 if(score.get(subroute)>bestScore){
                     bestScore = score.get(subroute);
+                    outcost = bestCost;
                     outRoute = bestroute;
                 }
                 System.out.println("----------");
@@ -145,7 +153,7 @@ public class tspbruteTest {
 
             }
         }
-        System.out.println("实验结果"+outRoute+" "+bestScore);
+        System.out.println("实验结果"+outRoute+" "+bestScore+" 花费 "+outcost);
     }
     public static void main(String[] args) {
         init();

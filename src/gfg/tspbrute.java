@@ -5,13 +5,27 @@ import java.util.*;
 public class tspbrute {
 
     static int[][] cost = {
-            { 0, 10, 15, 20,40 },
-            { 10, 0, 35, 25,20 },
-            { 15, 35, 0, 30,25 },
-            { 20, 25, 30, 0,45 },
-            { 30, 10, 15, 20,0 }};
-    static int[] visited = {30,50,20,10,5};
+//            { 0, 10, 15, 20,40 },
+//            { 10, 0, 35, 25,20 },
+//            { 15, 35, 0, 30,25 },
+//            { 20, 25, 30, 0,45 },
+//            { 30, 10, 15, 20,0 }
+            {0,50,98,59,86,68,84,79,80,68},
+            {77,0,71,67,84,81,87,76,85,72},
+            {90,83,0,90,91,89,50,92,63,61},
+            {95,85,54,0,68,66,75,85,81,80},
+            {100,90,84,81,0,77,58,73,84,72},
+            {84,50,64,96,67,0,69,76,70,92},
+            {65,54,75,81,62,72,0,55,59,71},
+            {85,57,52,99,57,86,63,0,81,93},
+            {65,65,57,60,93,94,52,96,0,53},
+            {65,62,58,64,90,54,77,91,55,0},
+    };
+
+    static int[] visited = {36,21,33,48,45,48,39,37,25,43,};
+
     private static void add(){
+
         for (int i = 0; i <cost.length ; i++) {
             for (int j = 0; j <cost[0].length ; j++) {
                 cost[i][j]+=visited[j];
@@ -19,9 +33,8 @@ public class tspbrute {
             }
         }
     }
-    static double[] popular = {.4,.2,.3,.1,.3};
-    static double[] weight = {.2,.2,.3,.3,.5};
-
+    static double[] popular = {0.123264,0.0812708,0.627277,0.922849,0.834773,0.51677,0.812952,0.327586,0.504624,0.560625,};
+    static double[] weight = {0.9035,0.131809,0.773522,0.47438,0.178228,0.757622,0.17774,0.662343,0.830317,0.271706,};
 
     //start =0 生成1,2,3->[[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
 
@@ -49,9 +62,11 @@ public class tspbrute {
 //        back(rst,new ArrayList<>(),1);
 //        return rst;
 //   }
-    static int[] poiIDs= {0,1,2,3,4};
+    static int[] poiIDs= {0,1,2,3,4,5,6,7,8,9};
+//    static int[] poiIDs= {0,1,2,3,4};
 
-//    private static void back(List<List<Integer>> rst,List<Integer> item,int idx){
+
+    //    private static void back(List<List<Integer>> rst,List<Integer> item,int idx){
 //        if(idx==poiIDs.length){
 //            rst.add(new ArrayList<>(item));
 //            return;
@@ -62,7 +77,7 @@ public class tspbrute {
 //           item.remove(item.size()-1);
 //       }
 //   }
-    static int n = 5;
+    static int n = 10;
     static double ita = .5;
     static double[][] dp = new double[1<<n][n];
     static double profit(int poiID){
@@ -100,7 +115,7 @@ public class tspbrute {
 
     }
 
-    static int budget = 150;
+    static int budget = 3000;
 
     static int beforeTimelimit(List<List<Integer>> routes){
         int min_path = Integer.MAX_VALUE;
@@ -132,16 +147,22 @@ public class tspbrute {
         List<List<Integer>> subpermutation = subpermutation();
         System.out.println(subpermutation);
         HashMap<List<Integer>, Double> score = subrouteScore(subpermutation);
-        System.out.println(score);
+//        System.out.println(score);
         double bestScore = 0;
-
+        List<Integer> outRoute = new ArrayList<>();
+        int outcost = Integer.MAX_VALUE;
         for(List<Integer> subroute:subpermutation){
             List<List<Integer>> permutation = permutation(subroute);
             bestroute= new ArrayList<>();
+
+
             int bestCost = beforeTimelimit(permutation);
             if (bestCost<=budget) {
                 if(score.get(subroute)>bestScore){
                     bestScore = score.get(subroute);
+                    outRoute = bestroute;
+                    outcost = bestCost;
+
                 }
                 System.out.println("----------");
                 System.out.println("少于"+budget+"分钟的点集 兴趣评分是");
@@ -154,6 +175,8 @@ public class tspbrute {
 
 
         }
+        System.out.println("实验结果"+outRoute+" "+bestScore+" 花费 "+outcost);
+
     }
 //    static void tsp(int s,int mask){
 //        int choosepoint = 1;
