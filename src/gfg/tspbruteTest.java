@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class tspbruteTest {
-    static Logger logger = Logger.getLogger("gfg.Logger");
+//    static Logger logger = Logger.getLogger("gfg.Logger");
     static int[][] cost;
     static int n = 11;
     static  Random rnd = new Random(1024);
@@ -13,7 +13,7 @@ public class tspbruteTest {
     static double[] weight;
     static double[] popular;
     static int start = 0;
-    static int budget = 500;
+    static int budget = 200;
     static double ita =.5;
 
     static public void init(){
@@ -109,7 +109,7 @@ public class tspbruteTest {
                 k = route.get(i);
             }
             curcost += cost[k][start];
-            if(curcost>budget)return 9999999;
+            if(curcost>budget)continue;
             if (min_path > curcost) {
                 min_path = curcost;
                 bestroute = route;
@@ -119,6 +119,22 @@ public class tspbruteTest {
 //        logger.info("完成"+routes.get(0)+"的所有排序的最短路径");
         return min_path;
     }
+    private static void testroute(){
+        List<Integer> route = new ArrayList<>();
+        route.add(9);
+        route.add(3 );
+        int curcost = 0;
+        int k = 0;
+        for (int i = 0; i <route.size() ; i++) {
+            System.out.println(cost[k][route.get(i)]);
+            curcost+=cost[k][route.get(i)];
+            k = route.get(i);
+        }
+        curcost+=cost[k][0];
+
+        System.out.println(curcost);
+
+    }
     static void start(){
 
         System.out.println(Arrays.deepToString(cost));
@@ -127,7 +143,7 @@ public class tspbruteTest {
         System.out.println("以上是输入");
         List<List<Integer>> subpermutation = subpermutation();
 
-//        System.out.println(subpermutation);
+        System.out.println(subpermutation);
         HashMap<List<Integer>, Double> score = subrouteScore(subpermutation);
 //        System.out.println(score);
         double bestScore = 0;
@@ -158,5 +174,10 @@ public class tspbruteTest {
     public static void main(String[] args) {
         init();
         start();
+//        testroute();
+//        List<Integer> route = new ArrayList<>();
+//        route.add(9);
+//        route.add(3 );
+//        System.out.println(beforeTimelimit(permutation(route)));
     }
 }
