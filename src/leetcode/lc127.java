@@ -8,8 +8,90 @@ public class lc127 {
         char[] a = {1,2,3,4,5,6};
         char[] b = {1,2,3,4,5,6};
         System.out.println(new String(a).equals(new String(b)));
+        HashSet<String> set = new HashSet<>();
+        set.add("hit");
+        String hit = "hit";
+        System.out.println(set.contains(hit));
 
+    }
+    private boolean dif(String difword,String cur){
+        int cnt=0;
+        for(int i =0;i<difword.length();i++){
+            if(difword.charAt(i)!=cur.charAt(i)){
+                cnt++;
+                if(cnt>1)return false;
+            }
+        }
+        return true;
+    }
+    public int ladderLengthchar(String beginWord, String endWord, List<String> wordList) {
+        int cnt = 0;
+        HashSet<String> words = new HashSet<>();
+        for(String word:wordList){
+            words.add(word);
+        }
+        Set<String> marked = new HashSet<>();
+        Deque<String> que = new ArrayDeque<>();
+        que.add(beginWord);
+        marked.add(beginWord);
+        while(!que.isEmpty()){
+            cnt++;
+            int size = que.size();
+            while(size>0){
+                size--;
+                String cur = que.poll();
+                char[] curr = cur.toCharArray();
+                for(int i =0;i<curr.length;i++){
+                    for(char c='a';c<='z';c++){
+                        if(curr[i]!=c){
+                            curr[i]=c;
+                            String next = new String(curr);
+                            if(words.contains(next)){
+                                if(next.equals(endWord))return cnt+1;
+                                if(!marked.contains(next)){
+                                    que.add(next);
+                                    marked.add(next);
+                                }
+                            }
+                        }
+                    }
+                }
 
+            }
+        }
+        return 0;
+    }
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        int cnt = 0;
+        HashSet<String> words = new HashSet<>();
+        for(String word:wordList){
+            words.add(word);
+        }
+        Set<String> marked = new HashSet<>();
+        Deque<String> que = new ArrayDeque<>();
+        que.add(beginWord);
+        marked.add(beginWord);
+        while(!que.isEmpty()){
+            cnt++;
+            int size = que.size();
+            while(size>0){
+                size--;
+                String cur = que.poll();
+
+                //list.size()*cur.length()
+                //cur.length()*25
+                for(String difword:words){
+                    if(dif(difword,cur)){
+                        if(difword.equals(endWord))return cnt+1;
+                        if(!marked.contains(difword)){
+                        que.add(difword);
+                        marked.add(difword);
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 //    private boolean diffone(String s1,String s2){
 //        if(s1.length()!=s2.length())return false;

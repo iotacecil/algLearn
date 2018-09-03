@@ -6,9 +6,9 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 public class TreeNode implements Cloneable{
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
     public TreeNode(int x){
         val = x;
     }

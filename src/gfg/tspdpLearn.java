@@ -9,7 +9,7 @@ import java.util.*;
 480分钟 最多24个点,运行时间为:12592 所有点3000budget 用时14614
  */
 public class tspdpLearn {
-    int budget =3000 ;
+    int budget =480 ;
    public void init(int n){
        citynumbers = n;
       Random rnd = new Random(1024);
@@ -148,6 +148,11 @@ public class tspdpLearn {
                         //运行时间970
                         while (((i>>idx)&((2<<citynumbers)-1))!=0){
                             if(((i>>idx)&1)!=0) {
+                                //[0, 11, 13, 21, 10, 1, 12, 9, 23, 2, 18, 15, 16, 20, 8, 3, 14, 7, 19, 4, 22, 5, 6, 17, 0]
+                                //运行时间为:14686
+//                                if(optimalvalue[idx+1][(i-(1<<idx))]==budget){
+//                                  continue;
+//                                }
                                 double y=(distance[j][idx+1]+optimalvalue[idx+1][(i-(1<<idx))]);
                                 if(y<min) {
 
@@ -242,15 +247,18 @@ public class tspdpLearn {
 
         public static void main(String[] args) throws IOException{
             long a=System.currentTimeMillis();
+            long start = System.nanoTime();
             tspdpLearn tsp=new tspdpLearn();//建立对象，根据需要初始化10,25或100
             tsp.init(24);
 //            tsp.smallcase();
 
 
             tsp.solve();
+            long end = System.nanoTime();
             long b=System.currentTimeMillis();
             long c=b-a;
             System.out.println("运行时间为:"+c);//输出运行时间
+            System.out.println("运行时间为:"+(end-start));//输出运行时间
         }
 
 

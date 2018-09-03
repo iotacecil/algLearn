@@ -3,6 +3,41 @@ package leetcode;
 import java.util.*;
 
 public class lc684 {
+    //Unifind模板
+    class UnionFind{
+        int [] parent;
+        UnionFind(int size){
+            parent = new int[size+1];
+            for (int i = 0; i < size+1; i++) {
+                parent[i] = i;
+            }
+        }
+        public boolean union(int node1,int node2){
+            int find1 = find(node1);
+            int find2 = find(node2);
+            //已经在一个集合里了
+            if(find1==find2)return false;
+            if(find1 != find2){
+                parent[find1] = find2;
+            }
+            return true;
+        }
+        public int find (int node){
+            if(parent[node] == node)return node;
+            parent[node] = find(parent[node]);
+            return parent[node];
+        }
+    }
+    public int[] findRedundantConnectionUF(int[][] edges) {
+        UnionFind uf = new UnionFind(edges.length);
+        for(int[]edge:edges){
+            if(!uf.union(edge[0],edge[1] ))
+                return edge;
+        }
+        return new int[]{};
+    }
+
+
     //dfs找路径
     private boolean hasPath(int cur,int target,Map<Integer,List<Integer>> graph,HashSet visited){
         if(cur== target)return true;
@@ -78,7 +113,9 @@ public class lc684 {
     }
     public static void main(String[] args) {
         lc684 sl = new lc684();
-        int[] redundantConnection2 = sl.myself(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}});
-        System.out.println(Arrays.toString(redundantConnection2));
+//        int[] redundantConnection2 = sl.myself(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}});
+//        System.out.println(Arrays.toString(redundantConnection2));
+        System.out.println(Arrays.toString(sl.findRedundantConnectionUF(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}})));
+        System.out.println(Arrays.toString(sl.findRedundantConnectionUF(new int[][]{{1,2},{1,3},{2,3}})));
     }
 }
