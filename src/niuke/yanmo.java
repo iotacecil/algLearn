@@ -29,6 +29,8 @@ public class yanmo {
 
     }
     public static void main(String[] args) {
+        String str = "aaa";
+
         int water = 3;
         int[][] land = {
                 {3,3,3},
