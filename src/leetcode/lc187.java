@@ -2,9 +2,8 @@ package leetcode;
 
 import dsLearn.lrs;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 //wa
 //Input:
 //        "GAGAGAGAGAGAG"
@@ -13,6 +12,22 @@ import java.util.List;
 //        Expected:
 //        ["GAGAGAGAGA","AGAGAGAGAG"]
 public class lc187 {
+
+    public List<String> findRepeatedDnaSequencesSet(String s) {
+        Set<String> rst = new HashSet<>();
+        HashSet<String> set = new HashSet<>();
+//i=0 i<
+        for(int i =0;i<=s.length()-10;i++){
+            System.out.println(s.length()+" "+i);
+            String sub = s.substring(i,i+10);
+            if(set.contains(sub))rst.add(sub);
+            else set.add(sub);
+        }
+        return new ArrayList<>(rst);
+    }
+
+
+
     private int lcp(String s1,String s2){
         int cnt = 0;
         for(int i =0;i<(s1.length()<s2.length()?s1.length():s2.length());i++){
@@ -50,9 +65,11 @@ public class lc187 {
     }
 
     public static void main(String[] args) {
-        String str = "GAGAGAGAGAGAG";
+//        String str = "GAGAGAGAGAGAG";
         lc187 sl = new lc187();
-        System.out.println(sl.findRepeatedDnaSequences(str));
-        System.out.println(sl.lcp("GAGAGAGAGAG", "GAGAGAGAGAGAG"));
+//        System.out.println(sl.findRepeatedDnaSequences(str));
+
+        System.out.println(sl.findRepeatedDnaSequencesSet( "AAAAAAAAAAAA"));
+//        System.out.println(sl.lcp("GAGAGAGAGAG", "GAGAGAGAGAGAG"));
     }
 }

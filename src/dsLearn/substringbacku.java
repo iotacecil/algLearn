@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class substringbacku {
 
+
+
+
     //RabinKarp
 //    private long longRandomPrime(){
 //        BigInteger prime = BigInteger.probablePrime(31,new Random());
@@ -95,28 +98,89 @@ public class substringbacku {
         return -1;
     }
 
-
-    //KMP DFA
-    //todo 可以去掉R
-    public static int serachByDfa(String source,String target){
+//    clean KMP
+    public static int serachByKMP(String source,String target){
         if(source.length()<target.length())return -1;
         if(target==null||target.length()==0)return 0;
-        int R = 256;
+        int M = target.length();
+        int N = source.length();
+        //longest proper prefix
+        // prefixes of “ABC” are “”, “A”, “AB” and “ABC”.
+        //
+        // Proper prefixes are “”, “A” and “AB”.
+        // Suffixes of the string are “”, “C”, “BC” and “ABC”.
+
+//        lps[i] = the longest proper prefix of pat[0..i]
+//        which is also a suffix of pat[0..i]
+
+        //For the pattern “AAACAAAAAC”,
+        //lps[] is [0, 1, 2, 0, 1, 2, 3, 3, 3, 4]
+        int[] dfa = new int[M];
+        int k = 0;
+        dfa[0] =0;
+        for (int i = 1; i < M; i++) {
+            while (k>0&&target.charAt(k)!=target.charAt(i))
+                k = dfa[k-1];
+            if(target.charAt(k)==target.charAt(i)){
+                k++;
+            }
+            dfa[i]=k;
+        }
+       System.out.println(Arrays.toString(dfa));
+
+        int q = 0;
+        //[0, 0, 0, 1, 0]
+        //"mississippi",
+        // "issip" q=4 i=5 dfa[3]=1
+        // "issip" q=1 i=5
+        //    "issip"
+        for (int i = 0; i <N ; i++) {
+            while(q>0&&target.charAt(q)!=source.charAt(i)){
+                System.out.println(q+" "+i);
+                System.out.println(target.charAt(q));
+                System.out.println(source.charAt(i));
+
+                q = dfa[q-1];
+                System.out.println();
+
+            }
+
+            if(target.charAt(q)==source.charAt(i))
+                q++;
+            if(q==M)
+                return i-M+1;
+        }
+        return -1;
+
+    }
+
+
+    //KMP DFA
+    public static int serachByDfa(String source,String target){
+        System.out.println("---DFA---");
+        if(source.length()<target.length())return -1;
+        if(target==null||target.length()==0)return 0;
+//        int R = 256;
+        int R = 26;
         int M = target.length();
         int[][] dfa = new int[R][M];
 
-        dfa[target.charAt(0)][0] =1;
+        dfa[target.charAt(0)-'a'][0] =1;
         for(int X = 0,j=1;j<M;j++){
-            for (int c = 0; c < R; c++)
+            for (int c = 0; c < R; c++) {
                 dfa[c][j] = dfa[c][X];
-            dfa[target.charAt(j)][j] = j+1;
-            X = dfa[target.charAt(j)][X];
+            }
+            dfa[target.charAt(j)-'a'][j] = j+1;
+
+            X = dfa[target.charAt(j)-'a'][X];
+
 
         }
+        System.out.println(Arrays.deepToString(dfa));
 
         int i,j,N = source.length();
         for (i = 0,j=0; i  < N&&j< M; i++) {
-            j = dfa[source.charAt(i)][j];
+            j = dfa[source.charAt(i)-'a'][j];
         }
         if(j==M) return i-M;
         else return -1;
@@ -202,54 +266,5 @@ public class substringbacku {
         }
         return -1;
     }
-    public static void main(String[] args) {
-        substringbacku sl = new substringbacku();
-        System.out.println(sl.searchRabinKarp("hello", "ll"));
-//        int a = 2;
-//        System.out.println(Integer.toBinaryString(a));
-//        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//        StringBuilder sb1 =new StringBuilder();
-//        StringBuilder sb2 =new StringBuilder();
-//        Random random=new Random(1024);
-//        String[] sources = new String[50];
-//        String[] targets = new String[50];
-//        System.out.println("boyer"+searchBoyer("hello", "ll"));
-//
-//        for (int k = 0; k <sources.length ; k++) {
-//
-//
-//            int length = random.nextInt(1000);
-//            for (int i = 0; i < length; i++) {
-//                int number = random.nextInt(62);
-//                sb1.append(str.charAt(number));
-//                if (i >= length*3/5&&i <= length*4/5)
-//                    sb2.append(str.charAt(number));
-//            }
-//            sources[k] = sb1.toString();
-//            targets[k] = sb2.toString();
-//        }
-////        System.out.println(Arrays.toString(targets));
-////        System.out.println(sources[0].length());
-////        System.out.println(targets[0].length());
-//        long start = System.currentTimeMillis();
-//        for(int i=0;i<sources.length;i++){
-////            serachByDfa(sources[i],targets[i]);
-//            searchBoyer(sources[i],targets[i]);
-////            indexOf(sources[i],targets[i]);
-//        }
-//
-//        long end = System.currentTimeMillis();
-//        System.out.println("用时"+(end-start));
-//
-//        System.out.println(search("ADAC", "ABACADABRAC"));
-//
-//        String source = "hello";
-//        String target = "ll";
-//        System.out.println("DFA"+serachByDfa("aaaaa", "aaa"));
-//
-//        System.out.println(search( source,target));
-//        System.out.println();
-//
-//        System.out.println(indexOf( source.toCharArray(),0,source.length(),target.toCharArray(),0,target.length(),0));
-    }
+
 }
