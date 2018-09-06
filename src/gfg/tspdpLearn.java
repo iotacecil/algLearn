@@ -249,7 +249,7 @@ public class tspdpLearn {
             long a=System.currentTimeMillis();
             long start = System.nanoTime();
             tspdpLearn tsp=new tspdpLearn();//建立对象，根据需要初始化10,25或100
-            tsp.init(24);
+            tsp.init(25);
 //            tsp.smallcase();
 
 

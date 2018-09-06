@@ -1,11 +1,92 @@
 package leetcode;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 //Anagram Substring Search
 public class lc438 {
+    public static void main(String[] args) {
+        int[] a = {1,2,3,4,5};
+        int[] b = {1,2,3,4,5};
+
+        String s = "cbaebabacd";
+
+        String p= "abc";
+        lc438 sl = new lc438();
+//        System.out.println(sl.findAnagramsMy(s, p));
+        System.out.println(sl.findAnagramsArrEqual("abab", "ab"));
+//        List<Integer> result = findAnagrams(s,p);
+        //System.out.println(result);
+
+
+    }
+    public List<Integer> findAnagramsArrEqual(String s, String p) {
+        List<Integer> rst = new ArrayList<>();
+        int[] ch = new int[26];
+        int wcn = p.length();
+        for(char c:p.toCharArray()){
+            ch[c-'a']++;
+        }
+        int[] window = new int[26];
+        for (int i = 0; i <s.length() ; i++) {
+            if(i>=wcn){
+                --window[s.charAt(i-wcn)-'a'];
+            }
+            window[s.charAt(i)-'a']++;
+            if(Arrays.equals(window, ch)){
+                rst.add(i-wcn+1);
+            }
+        }
+        return rst;
+    }
+
+//
+//    public List<Integer> findAnagramsHashMap(String s, String p) {
+//        List<Integer> rst = new ArrayList<>();
+//        Map<Character,Integer> map = new HashMap<>();
+//        int wcn = p.length();
+//        for(char c:p.toCharArray()){
+//            map.putIfAbsent(c, map.getOrDefault(c,0 )+1);
+//        }
+//        for(int i=0;i<=s.length()-wcn;i++) {
+//            int j = 0;
+//            if(map.containsKey(s.charAt(i))){
+//
+//            }
+//            while (j<wcn){
+//
+//            }
+//        }
+//
+//    }
+    public List<Integer> findAnagramsMy(String s, String p) {
+        List<Integer> rst = new ArrayList<>();
+        int[] ch = new int[26];
+        int wcn = p.length();
+        for(char c:p.toCharArray()){
+            ch[c-'a']++;
+        }
+        //s=4, wcn = 2  j =0,1 i+j<4
+        for(int i=0;i<=s.length()-wcn;i++){
+            int j=0;
+            int[] window=ch.clone();
+            while(j<wcn){
+
+                if(--window[s.charAt(i+j)-'a']<0){
+                    System.out.println(Arrays.toString(window));
+                    break;
+                }
+                j++;
+
+
+            }
+            if(j==wcn){
+
+                rst.add(i);
+            }
+        }
+        return rst;
+    }
     //滑动窗口匹配字符串
     public static List<Integer> findAnagrams(String s, String p) {
         List<Integer> result= new ArrayList<>();
@@ -58,16 +139,5 @@ public class lc438 {
 
 
     }
-    public static void main(String[] args) {
-        int[] a = {1,2,3,4,5};
-        int[] b = {1,2,3,4,5};
 
-        String s = "cbaebabacd";
-
-        String p= "abc";
-        List<Integer> result = findAnagrams(s,p);
-        //System.out.println(result);
-
-
-    }
 }

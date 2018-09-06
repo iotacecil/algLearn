@@ -25,6 +25,7 @@ public class substringbacku {
             h = (R * h + key.charAt(j)) % q;
         return h;
     }
+    //变成拉斯维加斯算法
     private boolean check(String source,String target, int i) {
         for (int j = 0; j <target.length() ; j++)
             if (target.charAt(j) != source.charAt(i + j))
@@ -47,7 +48,7 @@ public class substringbacku {
         long txtHash = hash(source, m);
         System.out.println(patHash);
         System.out.println(txtHash);
-
+        //一开始就匹配成功
         if ((patHash == txtHash) && check(source,target, 0))
             return 0;
 
