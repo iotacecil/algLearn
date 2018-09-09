@@ -1,4 +1,4 @@
-package gfg;
+package gfg.tsp;
 
 import java.util.*;
 

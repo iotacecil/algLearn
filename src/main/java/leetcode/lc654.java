@@ -11,7 +11,7 @@ import java.util.Deque;
 //6->0 stack:6,0
 //5left->0 stack:6 6right->5
 
-public class lc645 {
+public class lc654 {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         for(int i = 0; i < nums.length; i++) {
@@ -29,7 +29,7 @@ public class lc645 {
     }
 
     public static void main(String[] args) {
-        lc645 sl = new lc645();
+        lc654 sl = new lc654();
         System.out.println(sl.constructMaximumBinaryTree(new int[]{3, 2, 1, 6, 0, 5}));
     }
 }
