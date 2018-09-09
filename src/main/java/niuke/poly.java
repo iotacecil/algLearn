@@ -1,4 +1,4 @@
-//package niuke;
+//package main.java.niuke;
 //
 //public class poly {
 //    int[] poly ={0,0,0,2,2,2,2,0};

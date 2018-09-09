@@ -1,6 +1,5 @@
 package leetcode;
 //？？？？？？
-import java.util.Arrays;
 
 public class lc108 {
     public static TreeNode sortedArrayToBST(int[] nums) {

@@ -1,8 +1,7 @@
 package gfg;
 
-import leetcode.TreeNode;
-
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class SegmentTree {
     class SegmentTnode{

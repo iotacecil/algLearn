@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class lc392 {
     public boolean isSubsequence(String s, String t) {
         int slen = s.length();

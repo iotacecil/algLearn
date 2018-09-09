@@ -1,11 +1,6 @@
 package meituan;
 
 
-
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-
 public class dianying {
     static String[][] phone={
     {"@!:","ABC","DEF"},

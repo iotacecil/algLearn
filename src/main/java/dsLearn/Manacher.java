@@ -1,7 +1,5 @@
 package dsLearn;
 
-import sun.java2d.pipe.SpanIterator;
-
 import java.util.Arrays;
 
 /*

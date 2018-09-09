@@ -1,7 +1,5 @@
 package dsLearn;
 
-import leetcode.TreeNode;
-
 import java.util.*;
 
 class TreeNodeT<T>{

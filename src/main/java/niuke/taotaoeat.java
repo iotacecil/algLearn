@@ -1,11 +1,7 @@
 package niuke;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.concurrent.ForkJoinTask;
 
 public class taotaoeat {
    static   class good{

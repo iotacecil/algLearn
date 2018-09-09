@@ -1,9 +1,5 @@
 package leetcode;
 
-import sun.security.rsa.RSASignature;
-
-import java.security.MessageDigest;
-
 public class lc476 {
     public int comp(int num){
         int mask = ~0;

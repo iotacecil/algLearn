@@ -1,6 +1,8 @@
 package other_oj;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 //不知道为什么的wrong answer
 //1 2,2 11 ,2
 //cnt = 1, 2,next = 2

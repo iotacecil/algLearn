@@ -1,9 +1,7 @@
 package dsLearn;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Codec {
     List<String> urls = new ArrayList<String>();
@@ -20,7 +18,7 @@ public class Codec {
     }
     public static void main(String[] args) {
         Codec sl = new Codec();
-        System.out.println(sl.encode("https://leetcode.com/problems/design-tinyurl"));
+        System.out.println(sl.encode("https://main.java.leetcode.com/problems/design-tinyurl"));
 
     }
 }

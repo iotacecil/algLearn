@@ -4,7 +4,6 @@ import leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class LCA {
     TreeNode lcaBST(TreeNode root,TreeNode p,TreeNode q){

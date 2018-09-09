@@ -1,4 +1,4 @@
-//package gfg;
+//package main.java.gfg;
 //
 //public class tspbb {
 //    int n = 4;

@@ -1,7 +1,5 @@
 package leetcode;
 
-import dsLearn.lrs;
-
 import java.util.*;
 
 //wa

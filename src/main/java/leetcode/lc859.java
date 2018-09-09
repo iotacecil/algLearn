@@ -8,9 +8,6 @@ package leetcode;
 //A[0]=B[1] A[1]=B[0]
 
 
-import java.util.HashSet;
-import java.util.Set;
-
 //swap two letters in A so that the result equals B
 public class lc859 {
     public boolean buddyStrings(String A, String B) {

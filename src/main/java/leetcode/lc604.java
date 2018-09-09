@@ -18,8 +18,6 @@ package leetcode;
 //        iterator.hasNext(); // return false
 //        iterator.next(); // return ' '
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.Arrays;
 
 //方法1：

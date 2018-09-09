@@ -1,8 +1,6 @@
 package leetcode;
 
-import javax.sound.midi.Soundbank;
 import java.util.Arrays;
-import java.util.TimerTask;
 
 //二进制串
 //rob = max(rob(n-2)+money[i],rob(n-1))

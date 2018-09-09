@@ -1,3 +1,5 @@
+package leetcode;
+
 import java.util.Arrays;
 
 public class lc452 {
@@ -11,7 +13,7 @@ public class lc452 {
             return 0;
         }
         int shots = 0;
-         Arrays.sort(points, (a, b) -> a[1] - b[1]);
+        Arrays.sort(points, (a, b) -> a[1] - b[1]);
         System.out.println(Arrays.deepToString(points));
 
         for (int i = 0; i < points.length; i++) {
@@ -27,12 +29,13 @@ public class lc452 {
 public static void main(String[] args) {
     System.out.println(findMinArrowShots(new int[][]{{1, 3}, {2, 5}, {4, 7},{6,9}}));
 }
+
     public static int findMinArrowShots(int[][] points) {
         if(points==null||points.length<1) return 0;
 
         int cnt =1;
         //按开始排序
-        Arrays.sort(points,(a,b)->a[0]-b[0]);
+        Arrays.sort(points,(a, b)->a[0]-b[0]);
         int begin = points[0][0];
         int end = points[0][1];
         for (int i = 0; i < points.length ; i++) {

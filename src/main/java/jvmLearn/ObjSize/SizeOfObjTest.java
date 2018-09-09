@@ -3,6 +3,7 @@ package jvmLearn.ObjSize;
 import static jvmLearn.ObjSize.SizeOfObject.fullSizeOf;
 import static jvmLearn.ObjSize.SizeOfObject.sizeOf;
 
+
 //-XX:+UseCompressedOops
 public class SizeOfObjTest {
     /**

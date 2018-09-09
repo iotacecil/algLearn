@@ -1,3 +1,5 @@
+package meituan;
+
 import java.util.Scanner;
 public class mt01 {
     public static void main(String[] args) {
@@ -35,7 +37,6 @@ public class mt01 {
 
         double out = Math.min(dif,dif2);
         System.out.printf("%.12f",out);
-
 
 
     }

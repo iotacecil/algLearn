@@ -1,7 +1,5 @@
 package niuke;
 
-import java.util.Arrays;
-
 interface  inter {
 
 }

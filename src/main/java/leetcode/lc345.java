@@ -1,8 +1,10 @@
+package leetcode;
+
 public class lc345 {
     static char[] vo = new char[]{'a','e','i','o','u','A','E','I','O','U'};
 
     private static int indexOf(char c){
-        for(int i=0;i<vo.length;i++){
+        for (int i = 0; i < vo.length; i++) {
             System.out.println(c+" "+vo[i]);
             if(c==vo[i]){
                 return i;
@@ -10,6 +12,7 @@ public class lc345 {
         }
         return -1;
     }
+
     public static  String reverseVowels(String s) {
 
         int i = 0;
@@ -37,6 +40,6 @@ public class lc345 {
 
     public static void main(String[] args) {
 //        System.out.println();
-        System.out.println(reverseVowels("leetcode"));
+        System.out.println(reverseVowels("main/java/leetcode"));
     }
 }

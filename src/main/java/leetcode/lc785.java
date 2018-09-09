@@ -1,6 +1,6 @@
 package leetcode;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class lc785 {
     public boolean isBipartite2(int[][] graph) {

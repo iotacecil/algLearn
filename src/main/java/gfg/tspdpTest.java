@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 public class tspdpTest {
-    static Logger logger = Logger.getLogger("gfg.Logger");
+    static Logger logger = Logger.getLogger("main.java.gfg.Logger");
     static int[][] cost;
     static int n = 10;
 

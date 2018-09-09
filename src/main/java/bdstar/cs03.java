@@ -1,8 +1,9 @@
 package bdstar;
 
 import java.io.BufferedInputStream;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 //超时
 //Time Limit Exceeded	1002	3000 MS	34272 K

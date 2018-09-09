@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
 class Solution8 {
     public int searchInsert(int[] nums, int target) {
         int position=0;

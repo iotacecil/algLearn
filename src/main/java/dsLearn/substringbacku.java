@@ -1,10 +1,6 @@
 package dsLearn;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Random;
 
 public class substringbacku {
 

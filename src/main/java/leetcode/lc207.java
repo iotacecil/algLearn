@@ -1,7 +1,9 @@
 package leetcode;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 // n courses you have to take, labeled from 0 to n-1.
 //2, [[1,0],[0,1]]

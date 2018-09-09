@@ -1,8 +1,6 @@
 package dsLearn.geohash;
 
 
-import java.util.Arrays;
-
 public class GeoHash {
     private Point point;
     private static final int MAX_BIT_PRECISION = 64;

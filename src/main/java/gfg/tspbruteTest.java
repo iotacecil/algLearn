@@ -2,10 +2,8 @@ package gfg;
 
 import java.util.*;
 
-import java.util.logging.Logger;
-
 public class tspbruteTest {
-//    static Logger logger = Logger.getLogger("gfg.Logger");
+    //    static Logger logger = Logger.getLogger("main.java.gfg.Logger");
     static int[][] cost;
     static int n = 11;
     static  Random rnd = new Random(1024);

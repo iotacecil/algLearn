@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.*;
-
 public class MinStack {
     private node head;
     private class node{

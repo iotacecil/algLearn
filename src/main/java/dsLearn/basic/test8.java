@@ -1,7 +1,6 @@
 package dsLearn.basic;
 
 import java.util.Arrays;
-import java.util.List;
 
 //小和问题和逆序问题
 public class test8 {

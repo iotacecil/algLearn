@@ -1,9 +1,8 @@
 package dsLearn.polygon;
 
-import java.awt.Polygon;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.util.Arrays;
 
 public class awtTest {
     public static void main(String[] args) {

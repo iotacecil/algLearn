@@ -1,9 +1,9 @@
 package leetcode;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class TreeNode implements Cloneable{
     public int val;

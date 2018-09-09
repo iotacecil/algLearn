@@ -1,7 +1,5 @@
 package gfg;
 
-import leetcode.TestEquals;
-
 import java.util.*;
 
 public class tspbrute {

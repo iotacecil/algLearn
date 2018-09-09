@@ -1,7 +1,5 @@
 package gfg;
 
-import java.util.PriorityQueue;
-
 public class hamiltback {
     //无向图 每个点1次
     final int V = 5;

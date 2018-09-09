@@ -1,6 +1,5 @@
 package gfg;
 //https://www.geeksforgeeks.org/branch-and-bound-set-1-introduction-with-01-knapsack/
-import java.util.Scanner;
 
 public class gfgtspdp {
 //    public static void main(String[] args) {

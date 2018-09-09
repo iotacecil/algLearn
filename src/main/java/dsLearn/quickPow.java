@@ -3,7 +3,6 @@ package dsLearn;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
-import java.util.Scanner;
 
 public class quickPow {
     public static int rotateRight(int i, int distance) {

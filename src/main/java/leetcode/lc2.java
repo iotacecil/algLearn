@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.List;
-
 public class lc2 {
     public ListNode add2(ListNode l1,ListNode l2){
         ListNode dumy = new ListNode(0);

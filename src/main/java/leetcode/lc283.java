@@ -1,8 +1,6 @@
 package leetcode;
 
-import javax.sound.midi.Soundbank;
 import java.util.Arrays;
-import java.util.Map;
 
 public class lc283 {
     //零少的情况

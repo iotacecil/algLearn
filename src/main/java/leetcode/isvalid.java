@@ -1,8 +1,5 @@
 package leetcode;
 
-import java.util.Hashtable;
-import java.util.Map;
-
 class Solution4 {
     public boolean isValid(String s) {
 //        Map<Character,Character> map = new Hashtable<>();

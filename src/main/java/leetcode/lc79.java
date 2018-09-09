@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class lc79 {
 //    boolean[][] marked;
     public boolean exist(char[][] board, String word) {

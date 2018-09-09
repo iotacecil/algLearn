@@ -1,3 +1,5 @@
+package leetcode;
+
 public class lc376 {
 
     public int wiggleMaxLength(int[] nums) {
@@ -10,7 +12,7 @@ public class lc376 {
         final int down = -1;
         int cnt = 1;
         int state = begin;
-        for(int i=1;i<nums.length;i++){
+        for (int i = 1; i < nums.length; i++) {
             switch(state){
                 case begin:
                     if(nums[i]>nums[i-1]){

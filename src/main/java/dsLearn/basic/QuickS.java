@@ -1,6 +1,9 @@
 package dsLearn.basic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 //https://algs4.cs.princeton.edu/23quicksort/
 public class QuickS {
 

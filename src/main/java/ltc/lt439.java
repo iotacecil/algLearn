@@ -1,7 +1,5 @@
 package ltc;
 
-import gfg.SegmentTree;
-
 import java.util.ArrayDeque;
 import java.util.Queue;
 

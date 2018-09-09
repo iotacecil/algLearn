@@ -1,4 +1,4 @@
-//package dsLearn.eightpuzzle;
+//package main.java.dsLearn.eightpuzzle;
 //
 //public class puzzleTest {
 //    public static void main(String[] args) {

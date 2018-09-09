@@ -1,6 +1,5 @@
 package leetcode;
 
-import javax.swing.table.TableModel;
 import java.util.*;
 //todo
 public class lc127 {

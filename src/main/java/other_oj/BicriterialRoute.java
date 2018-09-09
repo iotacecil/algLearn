@@ -11,7 +11,10 @@ package other_oj;
 //3 1 1 4
 //
 //2 4 2 4
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class BicriterialRoute {
     class Line{

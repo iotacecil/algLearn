@@ -1,10 +1,6 @@
 package leetcode;
 
 
-import java.io.ByteArrayOutputStream;
-import java.security.Provider;
-import java.security.Security;
-
 public class lc486 {
     public static boolean PredictTheWinner(int[] nums) {
         int asum=0;

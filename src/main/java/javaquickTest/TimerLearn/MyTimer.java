@@ -1,6 +1,5 @@
 package javaquickTest.TimerLearn;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 

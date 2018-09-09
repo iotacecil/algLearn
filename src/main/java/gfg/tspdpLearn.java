@@ -1,9 +1,9 @@
 package gfg;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Random;
 
 /*
 480分钟 最多24个点,运行时间为:12592 所有点3000budget 用时14614

@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.concurrent.ForkJoinTask;
-
 /*
 binary index tree 求前n项和问题
 第一遍求和O(n)

@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.ArrayList;
-
 class Solution11 {
     public int lengthOfLastWord(String s) {
         return s.trim().length();

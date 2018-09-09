@@ -1,7 +1,6 @@
 package bdstar;
 
 import java.io.BufferedInputStream;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class chusai1 {

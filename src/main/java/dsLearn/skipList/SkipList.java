@@ -1,4 +1,4 @@
-//package dsLearn.skipList;
+//package main.java.dsLearn.skipList;
 //
 //import java.util.concurrent.ConcurrentSkipListMap;
 //

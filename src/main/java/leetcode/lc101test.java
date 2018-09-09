@@ -1,9 +1,5 @@
 package leetcode;
 
-import java.beans.BeanInfo;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-
 public class lc101test  {
     public static boolean isSymmetric(TNode root){
         if(root!= null){

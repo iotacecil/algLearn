@@ -1,7 +1,6 @@
 package other_oj;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 //jdk5 中不支持“创建范型数组”，???不能省略尖括号

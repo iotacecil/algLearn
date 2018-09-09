@@ -1,9 +1,5 @@
 package gfg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /*
 有编号1-100的帽子，每个人有收集的帽子，求每个人选一个帽子不一样的种数
  */

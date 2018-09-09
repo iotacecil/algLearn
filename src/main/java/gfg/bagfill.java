@@ -1,7 +1,5 @@
 package gfg;
 
-import java.util.concurrent.ForkJoinPool;
-
 public class bagfill {
 //    private int mincost(int w,int[] cost){
 //        int n = cost.length;

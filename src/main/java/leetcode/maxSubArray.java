@@ -1,10 +1,5 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Vector;
-
 
 class Solution9 {
     public int maxSubArray(int[] nums) {
