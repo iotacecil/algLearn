@@ -6,7 +6,7 @@ import java.util.List;
 
 public class tspGreedy {
     static int start = 0;
-    static int budget = 3000;
+    static int budget = 480;
     private void smallcase(){
         cost = new int[][]{
                 { 0, 10, 15, 20,40 },
@@ -27,8 +27,41 @@ public class tspGreedy {
 
         add();
     }
-    List<Integer> pois = new ArrayList<>();
 
+    private void smallcase2(){
+        n=10;
+
+       cost= new int[][]{
+                {0,50,98,59,86,68,84,79,80,68},
+                {77,0,71,67,84,81,87,76,85,72},
+                {90,83,0,90,91,89,50,92,63,61},
+                {95,85,54,0,68,66,75,85,81,80},
+                {100,90,84,81,0,77,58,73,84,72},
+                {84,50,64,96,67,0,69,76,70,92},
+                {65,54,75,81,62,72,0,55,59,71},
+                {85,57,52,99,57,86,63,0,81,93},
+                {65,65,57,60,93,94,52,96,0,53},
+                {65,62,58,64,90,54,77,91,55,0},
+//
+        };
+
+
+        marked = new boolean[n];
+
+        visited = new int[]{36,21,33,48,45,48,39,37,25,43,};
+        popular = new double[]{0.123264,0.0812708,0.627277,0.922849,0.834773,0.51677,0.812952,0.327586,0.504624,0.560625,};
+        weight = new double[]{0.9035,0.131809,0.773522,0.47438,0.178228,0.757622,0.17774,0.662343,0.830317,0.271706,};
+        for (int i = 0; i < n; i++) {
+
+            pois.add(i);
+        }
+
+
+        add();
+
+    }
+    List<Integer> pois = new ArrayList<>();
+    static boolean[] marked;
     static int[][] cost;
     static int[] visited ;
     static double[] popular ;
@@ -59,33 +92,37 @@ public class tspGreedy {
         path[c++]=0;
         double outscore = profit(0);
         int i=0;
-        while (pois.size()>0&&curcost<=budget) {
+        int curnext = start;
+        while (curcost+cost[start][0]<=budget) {
             double curhigh = 0;
-            int curnext = start;
-            int remove = start;
-            for (i = 0; i < pois.size(); i++) {
-                double score = profit(pois.get(i)) / (cost[start][pois.get(i)]);
-                if (score > curhigh) {
-                    if(curcost+cost[start][pois.get(i)]+cost[pois.get(i)][0]>budget)continue;
+            //找到下一个poi
+            for (i = 1; i < n; i++) {
+                if(marked[i])continue;
+                double score = profit(i) / (cost[start][i]);
+                if (score >= curhigh) {
+                    if(curcost+cost[start][i]+cost[i][0]>budget)continue;
+
                     curhigh = score;
-                    curnext = pois.get(i);
-                    remove = i;
+                    curnext = i;
                 }
             }
+            if(curnext==start)break;
 
+            System.out.println(curcost+"+to"+curnext +" cost: "+cost[start][curnext]);
             curcost+=cost[start][curnext];
-            if(curcost>budget)break;
+            if(curcost+cost[curnext][0]>budget)break;
             path[c++]=curnext;
+            marked[curnext] = true;
             outscore+=profit(curnext);
             start = curnext;
-            pois.remove(remove);
         }
 
         path[c] =0;
+        curcost+=cost[curnext][0];
         System.out.println(Arrays.toString(path));
-        System.out.println(c);
         System.out.println("score"+outscore);
-        System.out.println("cost"+(curcost+(i==0?0:cost[i][0])));
+
+        System.out.println("cost"+curcost);
         int total = 0;
         for (int j = 0; j <c; j++) {
             total+=cost[path[j]][path[j + 1]];
@@ -99,7 +136,7 @@ public class tspGreedy {
 
     public static void main(String[] args) {
         tspGreedy sl = new tspGreedy();
-        sl.smallcase();
+        sl.smallcase2();
         sl.greedy();
     }
 }

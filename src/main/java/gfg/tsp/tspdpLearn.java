@@ -42,7 +42,7 @@ public class tspdpLearn {
 //       System.out.println("以上是输入");
     }
     private void smallcase(){
-        citynumbers=5;
+        citynumbers=10;
 
         int[][] cost= {
                 {0,50,98,59,86,68,84,79,80,68},
@@ -125,10 +125,10 @@ public class tspdpLearn {
         private int[][] optimalchoice;//阶段最优策略矩阵
         private HashMap<Integer,Double> scores = new HashMap<>();
         private int[][] optback;
-    static double[] popular;
-    static double[] weight ;
-    static double[][] dpscore;
-    static double ita = .5;
+        static double[] popular;
+        static double[] weight ;
+        static double[][] dpscore;
+        static double ita = .5;
     double profit(int poiID){
         return ita * popular[poiID] + (1 - ita) * weight[poiID];
     }
@@ -231,7 +231,7 @@ public class tspdpLearn {
 //            }
 
             System.out.println(Arrays.toString(path));
-//            System.out.println("score"+outscore+" cost : "+min+ " k: "+mink +" minmask: "+Integer.toBinaryString(minmask));
+            System.out.println("score"+outscore+" cost : "+min+ " k: "+mink +" minmask: "+Integer.toBinaryString(minmask));
 //            int cccc=0;
 //            for (int j = 0; j <c-1 ; j++) {
 //                System.out.print(distance[j][path[j+1]]+"+");
@@ -249,8 +249,8 @@ public class tspdpLearn {
             long a=System.currentTimeMillis();
             long start = System.nanoTime();
             tspdpLearn tsp=new tspdpLearn();//建立对象，根据需要初始化10,25或100
-            tsp.init(25);
-//            tsp.smallcase();
+//            tsp.init(25);
+            tsp.smallcase();
 
 
             tsp.solve();
