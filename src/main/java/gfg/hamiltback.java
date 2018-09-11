@@ -18,6 +18,7 @@ public class hamiltback {
     boolean hamUtil(int[][] graph,int[] path,int pos){
         //所有点都访问过了
         if(pos ==V){
+            //并且能够回到0
             if(graph[path[pos-1]][path[0]]==1)return true;
             else return false;
         }
