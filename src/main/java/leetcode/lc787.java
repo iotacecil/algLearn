@@ -4,9 +4,6 @@ package leetcode;
 //src = 0, dst = 2, k = 1
 //Output: 200
 
-import dsLearn.KMP;
-
-import javax.lang.model.element.VariableElement;
 import java.util.*;
 //todo nexttime
 public class lc787 {

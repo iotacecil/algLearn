@@ -3,10 +3,45 @@ package gfg.tsp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
+//TODO GREEDY算法要避免相同种类的poi访问2次
 public class tspGreedy {
     static int start = 0;
     static int budget = 480;
+
+        public void init(int number,int bg){
+            budget = bg;
+            n = number;
+            Random rnd = new Random(1024);
+            cost = new int[n][n];
+//       visited =new int[n];
+            marked = new boolean[n];
+
+            popular = new double[n];
+            weight = new double[n];
+            category = new int[n];
+            categoryCnt = new int[5];
+            Arrays.fill(categoryCnt,1);
+            for (int i = 0; i <n ; i++) {
+                for (int j = 0; j <n ; j++) {
+                    if(i==j){
+                        cost[i][j] = rnd.nextInt(30)+20;
+                        continue;
+                    }
+                    cost[i][j] = rnd.nextInt(50)+50;
+
+                }
+                weight[i] = rnd.nextDouble();
+                category[i] = rnd.nextInt(4)+1;
+                popular[i] = rnd.nextDouble();
+            }
+//       System.out.println(Arrays.deepToString(distance));
+//       System.out.println(Arrays.toString(popular));
+//       System.out.println(Arrays.toString(weight));
+//       System.out.println("以上是输入");
+        }
+
     private void smallcase(){
         cost = new int[][]{
                 { 0, 10, 15, 20,40 },
@@ -47,7 +82,10 @@ public class tspGreedy {
 
 
         marked = new boolean[n];
-
+        //假设只有5种
+        categoryCnt = new int[5];
+        Arrays.fill(categoryCnt,1);
+        category = new int[]{1,2,3,4,1,2,3,4,1,2};
         visited = new int[]{36,21,33,48,45,48,39,37,25,43,};
         popular = new double[]{0.123264,0.0812708,0.627277,0.922849,0.834773,0.51677,0.812952,0.327586,0.504624,0.560625,};
         weight = new double[]{0.9035,0.131809,0.773522,0.47438,0.178228,0.757622,0.17774,0.662343,0.830317,0.271706,};
@@ -60,6 +98,7 @@ public class tspGreedy {
         add();
 
     }
+
     List<Integer> pois = new ArrayList<>();
     static boolean[] marked;
     static int[][] cost;
@@ -69,6 +108,10 @@ public class tspGreedy {
     static int[] poiIDs;
     static int n;
     static double ita = .5;
+    //
+    int[] category;
+    int[] categoryCnt;
+
     static double profit(int poiID){
         return ita * popular[poiID] + (1 - ita) * weight[poiID];
     }
@@ -84,13 +127,14 @@ public class tspGreedy {
         }
     }
 
-    private void greedy(){
+    public void greedy(){
         int curcost = 0;
         int start =0;
         int[] path = new int[n+3];
         int c=0;
         path[c++]=0;
         double outscore = profit(0);
+//        double outscore =0;
         int i=0;
         int curnext = start;
         while (curcost+cost[start][0]<=budget) {
@@ -98,7 +142,9 @@ public class tspGreedy {
             //找到下一个poi
             for (i = 1; i < n; i++) {
                 if(marked[i])continue;
-                double score = profit(i) / (cost[start][i]);
+                //todo 跟dp比看看错了没有
+
+                double score = profit(i) / categoryCnt[category[i]]/n*(cost[start][i]);
                 if (score >= curhigh) {
                     if(curcost+cost[start][i]+cost[i][0]>budget)continue;
 
@@ -108,12 +154,16 @@ public class tspGreedy {
             }
             if(curnext==start)break;
 
-            System.out.println(curcost+"+to"+curnext +" cost: "+cost[start][curnext]);
+            System.out.println(curcost+" to "+curnext +" cost: "+cost[start][curnext]+" 访问了c"+category[curnext]+"这种score是"+profit(curnext) / categoryCnt[category[curnext]]/n*(cost[start][curnext]));
             curcost+=cost[start][curnext];
             if(curcost+cost[curnext][0]>budget)break;
+
+            System.out.println(Arrays.toString(categoryCnt));
             path[c++]=curnext;
             marked[curnext] = true;
-            outscore+=profit(curnext);
+            //改
+            outscore+=profit(curnext) / categoryCnt[category[curnext]]/n*(cost[start][curnext]);
+            categoryCnt[category[curnext]]++;
             start = curnext;
         }
 
@@ -127,7 +177,7 @@ public class tspGreedy {
         for (int j = 0; j <c; j++) {
             total+=cost[path[j]][path[j + 1]];
             System.out.print(path[j]+" "+path[j + 1]);
-            System.out.println(" cost: "+cost[path[j]][path[j + 1]]+" ");
+            System.out.println(" cost: "+cost[path[j]][path[j + 1]]+" total: "+total);
 
         }
         System.out.println(total);
@@ -136,7 +186,12 @@ public class tspGreedy {
 
     public static void main(String[] args) {
         tspGreedy sl = new tspGreedy();
-        sl.smallcase2();
+        sl.init(20,3000 );
+//        sl.smallcase2();
+        long a=System.currentTimeMillis();
         sl.greedy();
+        long b=System.currentTimeMillis();
+        long c=b-a;
+        System.out.println("运行时间为:"+c);//输出运行时间
     }
 }
