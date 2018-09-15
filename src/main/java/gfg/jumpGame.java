@@ -29,10 +29,26 @@ public class jumpGame {
         }
         return min;
     }
+    private int jumpdp(int[] nums){
+        int n = nums.length;
+        int[] dp =  new int[n];
+        if(n == 0||nums[0] ==0)return 0;
+        dp[0] = 0;
+        for (int i = 1; i < n; i++) {
+            dp[i] = Integer.MAX_VALUE;
+            for (int j = 0; j <i ; j++) {
+                if(i<=j+nums[j]&&dp[j]!= Integer.MAX_VALUE){
+                    dp[i] = Math.min(dp[i],dp[j]+1);
+                    break;
+                }
+            }
+        }
+        return dp[n-1];
+    }
     public static void main(String[] args) {
         int[] steps = {1, 3, 6, 3, 2, 3, 6, 8, 9, 5};
         int[] steps2 = {2,3,1,1,4};
         jumpGame sl = new jumpGame();
-        System.out.println(sl.minJumpRecur(steps2));
+        System.out.println(sl.jumpdp(steps2));
     }
 }

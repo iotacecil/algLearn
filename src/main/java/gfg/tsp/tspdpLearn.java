@@ -282,7 +282,7 @@ public class tspdpLearn {
         public static void main(String[] args) throws IOException{
 
             tspdpLearn tsp=new tspdpLearn();//建立对象，根据需要初始化10,25或100
-            tsp.init(26,3000);
+            tsp.init(27,3000);
 //            tsp.smallcase(10);
 
             long start = System.nanoTime();

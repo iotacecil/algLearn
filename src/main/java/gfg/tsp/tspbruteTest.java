@@ -2,6 +2,9 @@ package gfg.tsp;
 
 import java.util.*;
 
+/** random cost
+ * 用于测试暴力最多能几个点
+ */
 public class tspbruteTest {
     //    static Logger logger = Logger.getLogger("main.java.gfg.Logger");
     static int[][] cost;

@@ -2,10 +2,11 @@ package leetcode;
 
 public class ListNode {
 
-      int val;
-      ListNode next;
+      public int val;
+      public ListNode next;
       //构造函数
-      ListNode(int x) { val = x; }
+      public ListNode(int x) { val = x;
+      next = null;}
       @Override
       public String toString(){
           String out = ""+val;

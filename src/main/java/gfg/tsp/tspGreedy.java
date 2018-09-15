@@ -8,7 +8,7 @@ import java.util.Random;
 //TODO GREEDY算法要避免相同种类的poi访问2次
 public class tspGreedy {
     static int start = 0;
-    static int budget = 480;
+    static int budget = 3000;
 
         public void init(int number,int bg){
             budget = bg;
@@ -63,9 +63,9 @@ public class tspGreedy {
         add();
     }
 
-    private void smallcase2(){
+    private void smallcase2(int bg){
         n=10;
-
+        budget = bg;
        cost= new int[][]{
                 {0,50,98,59,86,68,84,79,80,68},
                 {77,0,71,67,84,81,87,76,85,72},
@@ -154,7 +154,7 @@ public class tspGreedy {
             }
             if(curnext==start)break;
 
-            System.out.println(curcost+" to "+curnext +" cost: "+cost[start][curnext]+" 访问了c"+category[curnext]+"这种score是"+profit(curnext) / categoryCnt[category[curnext]]/n*(cost[start][curnext]));
+            System.out.println("当前总score :"+outscore+" 当前花费 "+curcost+" from "+start+" to "+curnext +" cost: "+cost[start][curnext]+" 访问了c"+category[curnext]+"这种score是"+profit(curnext) / categoryCnt[category[curnext]]/n*(cost[start][curnext]));
             curcost+=cost[start][curnext];
             if(curcost+cost[curnext][0]>budget)break;
 
@@ -186,8 +186,8 @@ public class tspGreedy {
 
     public static void main(String[] args) {
         tspGreedy sl = new tspGreedy();
-        sl.init(20,3000 );
-//        sl.smallcase2();
+//        sl.init(20,3000 );
+        sl.smallcase2(3000);
         long a=System.currentTimeMillis();
         sl.greedy();
         long b=System.currentTimeMillis();
