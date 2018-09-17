@@ -75,28 +75,43 @@ public class lc39 {
                 tmp.remove(tmp.size()-1);
             }
     }
+//todo cant't understand
+    public List<List<Integer>> combinationSumDp(int[] cadi,int t){
+        Arrays.sort(cadi);
+        List<List<List<Integer>>> dp = new ArrayList<>();
+        for (int i = 1; i <=t ; i++) {
+            List<List<Integer>> newList = new ArrayList<>();
+            for (int j = 0; j <cadi.length&&cadi[j]<=i ; j++) {
+                System.out.println(dp);
+                //curr target is equal to curr candidate
+                if(i==cadi[j])newList.add(Arrays.asList(cadi[j]));
+                else
+                    for(List<Integer> l:dp.get(i-cadi[j]-1)) {
+                        System.out.println(i-cadi[j]+" "+l);
+                        System.out.println(cadi[j]);
+                        if (cadi[j] <= l.get(0)) {
+                            List cl = new ArrayList();
+                            cl.add(cadi[j]);
+                            cl.addAll(l);
+                            newList.add(cl);
+                        }
+                    }
+            }
+            dp.add(newList);
 
-//    public List<List<Integer>> combinationSumDp(int[] cadi,int t){
-//        Arrays.sort(cadi);
-//        List<List<List<Integer>>> dp = new ArrayList<>();
-//        for (int i = 1; i <=t ; i++) {
-//            List<List<Integer>> newList = new ArrayList<>();
-//            for (int j = 0; j <cadi.length&&cadi[j]<=i ; j++) {
-//
-//
-//            }
-//
-//
-//        }
-//    }
+        }
+        System.out.println(dp);
+        return dp.get(t-1);
+    }
 
 
 
     public static void main(String[] args) {
-        //有bug
+        //重复元素的情况
         int[] nums = {1,1,1};
+        int[] nums3 = {2,3,6,7};
         int[] nums2 = {48,22,49,24,26,47,33,40,37,39,31,46,36,43,45,34,28,20,29,25,41,32,23};
         lc39 sl = new lc39();
-        System.out.println(sl.combinationSum(nums, 2));
+        System.out.println(sl.combinationSumDp(nums3, 7));
     }
 }

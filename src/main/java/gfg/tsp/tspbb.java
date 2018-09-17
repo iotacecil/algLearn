@@ -1,7 +1,10 @@
 package gfg.tsp;
 
 import java.util.Arrays;
-
+/*
+lower bound:quality of solution
+upper bound: run time
+ */
 public class tspbb {
     int n = 4;
     static final int MV = Integer.MAX_VALUE;

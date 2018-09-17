@@ -11,7 +11,7 @@ public class nqueenback {
         for (int i = 0; i < N; i++)
         {
             for (int j = 0; j < N; j++)
-                System.out.print(" " + board[i][j]
+                System.out.print(" " + (board[i][j]==1?"Q":".")
                         + " ");
             System.out.println();
         }
@@ -36,9 +36,9 @@ public class nqueenback {
     //不返回true/false 每次col==N打印 可以输出所有解
         void solverUtil(int[][] board,int col){
         if(col>=N){
-//            printSolution(board);
+            printSolution(board);
 //            System.out.println();
-return;
+            return;
 //            return true;
         }
         for (int i = 0; i < N; i++) {
@@ -66,7 +66,7 @@ return;
 
     public static void main(String[] args) {
 //        37136 15个用时
-        nqueenback sl = new nqueenback(15);
+        nqueenback sl = new nqueenback(4);
 
         long start = System.currentTimeMillis();
         sl.solver();

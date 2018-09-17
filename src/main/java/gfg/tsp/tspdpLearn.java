@@ -22,6 +22,7 @@ public class tspdpLearn {
        popular = new double[n];
        weight = new double[n];
 
+       categoryCnt = new int[5];
 
         for (int i = 0; i <n ; i++) {
 
@@ -35,6 +36,7 @@ public class tspdpLearn {
             weight[i] = rnd.nextDouble();
 
             popular[i] = rnd.nextDouble();
+            category[i] = rnd.nextInt(4)+1;
         }
 
        optimalvalue =new double[citynumbers][1<<(citynumbers-1)];
@@ -268,6 +270,7 @@ public class tspdpLearn {
 
             System.out.println(Arrays.toString(path));
             System.out.println("score"+outscore+" cost : "+min+ " k: "+mink +" minmask: "+Integer.toBinaryString(minmask));
+            //todo 对path做一次brute同样的评分
         }
 
     /**

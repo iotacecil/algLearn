@@ -6,6 +6,7 @@ import java.util.Timer;
 public class MyTimer {
     public static void main(String[] args) throws InterruptedException {
         Timer timer = new Timer();
+
         MyTimerTASK myTimerTASK = new MyTimerTASK("业务逻辑");
         MyTimerTASK task2 = new MyTimerTASK("task2");
         Calendar calendar = Calendar.getInstance();

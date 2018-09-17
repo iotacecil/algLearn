@@ -26,7 +26,7 @@ public class tspbrute {
 
 //    static int[] visited ={36,54,41,33,20,55,};
     static int[] visited =new int[]{36,21,33,48,45,48,39,37,25,43,};
-    static int budget = 3000;
+    static int budget = 300;
 
 //    static int[] visited =new int[] {30,50,20,10,5};
 //    static double[] popular =new double[] {.411212,.232132,.233234,.12342,.343434};
@@ -77,6 +77,8 @@ public class tspbrute {
 
 
     static int[] category= new int[]{1,2,3,4,1,2,3,4,1,2};
+    static double[] cataScore= new double[]{0.123264,0.0812708,0.627277,0.922849,0.434333};
+
 
     //另一种subset的写法
 //   private static List<List<Integer>> subset4permu(){
@@ -99,9 +101,11 @@ public class tspbrute {
 //   }
     static int n = 10;
     static double ita = .5;
-    static double[][] dp = new double[1<<n][n];
+//    static double[][] dp = new double[1<<n][n];
     static double profit(int poiID){
-        return ita * popular[poiID] + (1 - ita) * weight[poiID];
+//        return ita * popular[poiID] + (1 - ita) * weight[poiID];
+        return ita*popular[poiID]+(1-ita)*cataScore[category[poiID]];
+
     }
 
     /**
@@ -122,28 +126,32 @@ public class tspbrute {
         return route2score;
     }
 
-    /**
-     * 有顺序的score，考虑第二次访问同种category 权重会降
-     * @param routes
-     * @return
-     */
-    static HashMap<List<Integer>,Double> routeScoreCategory(List<List<Integer>> routes){
-        HashMap<List<Integer>,Double> route2score = new HashMap<List<Integer>, Double>();
-        for(List<Integer> route:routes) {
-            //加上起点
-            int[] categoryCnt = new int[5];
-            Arrays.fill(categoryCnt,1);
-            double score = profit(0);
-            for(int poiID:route){
-                score += profit(poiID) / categoryCnt[category[poiID]]/n*(cost[start][poiID]);
-                categoryCnt[category[poiID]]++;
-            }
-            route2score.put(route,score);
-
-        }
-        return route2score;
-
-    }
+//    /**
+//     * 有顺序的score，考虑第二次访问同种category 权重会降
+//     * @param routes
+//     * @return
+//     */
+//    static HashMap<List<Integer>,Double> routeScoreCategory(List<List<Integer>> routes){
+//        HashMap<List<Integer>,Double> route2score = new HashMap<List<Integer>, Double>();
+//        for(List<Integer> route:routes) {
+//            //加上起点
+//            int[] categoryCnt = new int[5];
+//            Arrays.fill(categoryCnt,1);
+//            double score = profit(0);
+//            //有问题 但是没用到 暂时不改了
+//            for (int i = 0; i <route.size()-1 ; i++) {
+//
+//            }
+//            for(int poiID:route){
+//                score += profit(poiID) / categoryCnt[category[poiID]]/n*(cost[][poiID]);
+//                categoryCnt[category[poiID]]++;
+//            }
+//            route2score.put(route,score);
+//
+//        }
+//        return route2score;
+//
+//    }
 
     static int start = 0;
 
@@ -170,6 +178,9 @@ public class tspbrute {
             return res;
     }
 
+    private static double scoreInRoute(int[] count,int from,int to){
+        return profit(to) / ((double)count[category[to]]/n*(cost[from][to]));
+    }
     /**
      * 一条路径的cata权重 score 和cost
      * @param route
@@ -177,7 +188,7 @@ public class tspbrute {
      */
     static double[] oneRouteScoreCost(List<Integer> route){
 
-        int tmpcost =0;
+        int tmpcost =cost[0][0];
 //        int tmpscore = 0;
         int k = start;
         // 一条路径
@@ -186,14 +197,21 @@ public class tspbrute {
         double score = profit(0);
         for (int i = 0; i <route.size() ; i++) {
             tmpcost+=cost[k][route.get(i)];
+//            System.out.println("from: "+ k + " to: "+ route.get(i)+" cost : "+ cost[k][route.get(i)]);
             if(tmpcost>budget)return new double[]{budget,-1};
-            score += profit(route.get(i)) / categoryCnt[category[route.get(i)]]/n*(cost[k][route.get(i)]);
+//            score += (profit(route.get(i)) / ((double)categoryCnt[category[route.get(i)]]*(cost[k][route.get(i)]))/n);
+            score+=scoreInRoute(categoryCnt,k,route.get(i));
+//            System.out.println("from "+k+" To: "+route.get(i) +" score " + scoreInRoute(categoryCnt,k,route.get(i)));
+
             categoryCnt[category[route.get(i)]]++;
             k = route.get(i);
 //            System.out.println("当前总score :"+score+" 当前花费 "+tmpcost+" from "+k+" to "+route.get(i) +" cost: "+cost[k][route.get(i)]+" 访问了c"+category[route.get(i)]+"这种score是"+profit(route.get(i)) / categoryCnt[category[route.get(i)]]/n*(cost[k][route.get(i)]));
 
         }
         tmpcost+=cost[route.get(route.size()-1)][0];
+//        System.out.println("last: "+cost[route.get(route.size()-1)][0]);
+        if(tmpcost>budget)return new double[]{budget,-1};
+
         return new double[]{tmpcost,score};
     }
 
@@ -227,13 +245,17 @@ public class tspbrute {
      * @return
      */
     static int costTest(List<Integer> route){
-        int rssst = cost[0][route.get(0)];
+        int rssst = cost[0][route.get(0)]+cost[0][0];
+        System.out.println("from 0 to "+route.get(0)+" "+cost[0][route.get(0)]+" "+cost[0][0]);
         int i;
         for( i =0;i<route.size()-1;i++){
             rssst+=cost[route.get(i)][route.get(i+1)];
+            System.out.println(" "+route.get(i)+" to "+ route.get(i+1)+ " " +cost[route.get(i)][route.get(i+1)]);
         }
+
 //        System.out.println("出循环的i是不是路径最后一个点"+route.get(i)+" "+route.get(route.size()-1));
         rssst+=cost[route.get(route.size()-1)][0];
+        System.out.println("from "+route.get(route.size()-1)+" "+cost[route.get(route.size()-1)][0]);
         return rssst;
     }
 
@@ -254,7 +276,9 @@ public class tspbrute {
                 k = route.get(i);
             }
             curcost+=cost[k][start];
+
             if(curcost>budget)continue;
+            System.out.println("curcost:"+curcost);
             if(min_path>curcost){
                 min_path = curcost;
                 bestroute = route;
@@ -275,9 +299,9 @@ public class tspbrute {
         add();
         //greedy的最优解[1130.0, 45.120939850000006]
 //        List<Integer> route = Arrays.asList(2, 3, 5, 8, 4, 7, 9, 6, 1);
-//        System.out.println(Arrays.toString(oneRouteScoreCost(route)));
-
-        System.out.println(Arrays.deepToString(cost));
+//        System.out.println(costTest(Arrays.asList(2,9)));
+        System.out.println(Arrays.toString(oneRouteScoreCost(Arrays.asList(1, 6))));
+//        System.out.println(Arrays.deepToString(cost));
         List<List<Integer>> subpoints = subset4permu();
 
 //        HashMap<List<Integer>, Double> score = subPoisScore(subpermutation);

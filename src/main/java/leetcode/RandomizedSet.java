@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class RandomizedSet {
+class RandomizedSet {
     ArrayList<Integer> index;
     HashMap<Integer,Integer> map;
     Random rand = new Random();
-    public RandomizedSet() {
+     RandomizedSet() {
         index = new ArrayList<>();
         map = new HashMap<>();
 
     }
 
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-    public boolean insert(int val) {
+     boolean insert(int val) {
         boolean contain = map.containsKey(val);
         if(contain) return false;
         index.add(val);
