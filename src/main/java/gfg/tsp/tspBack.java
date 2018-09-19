@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
+//todo 用贪心法 计算用这条边和不用这条边的bound
 public class tspBack {
     public void init(int nn,int bg){
         Arrays.fill(categoryCnt, 1);
@@ -39,13 +39,18 @@ public class tspBack {
             category[i] = rnd.nextInt(4)+1;
             popular[i] = rnd.nextDouble();
         }
+        categoryCnt[category[0]]+=1;
+//        bestScore = scoreInRoute(categoryCnt, 0, 0);
+//        System.out.println("第一个点:"+bestScore);
+
 //        System.out.println(Arrays.deepToString(cost));
 //       System.out.println("以上是输入");
     }
-    void initSmasll(){
+    void initSmasll(int bg){
         n = 10;
-        budget = 300;
+        budget = bg;
         Arrays.fill(categoryCnt, 1);
+
         cost = new int[][]{
 //            { 0, 10, 15, 20,40 },
 //            { 10, 0, 35, 25,20 },
@@ -69,8 +74,13 @@ public class tspBack {
         visited =new int[]{36,21,33,48,45,48,39,37,25,43,};
         weight = new double[]{0.123264,0.0812708,0.627277,0.922849,0.834773,0.51677,0.812952,0.327586,0.504624,0.560625,};
         cataScore= new double[]{0.123264,0.0812708,0.627277,0.922849,0.434333};
+        //起点
+        categoryCnt[category[0]]+=1;
+//        bestScore = scoreInRoute(categoryCnt, 0, 0);
+
     }
      static int n;
+//todo 用贪心法求一个路线上界?
 
     boolean[] used;
      static  int[][] cost;
@@ -87,9 +97,7 @@ public class tspBack {
         return ita*popular[poiID]+(1-ita)*cataScore[category[poiID]];
     }
 
-    public void mincost(){
 
-    }
     static double bestScore=0;
     static List<Integer> bestRoute;
     static int bestCost = 0;
@@ -109,13 +117,14 @@ public class tspBack {
         for (int i = 1; i <n ; i++) {
             if(used[i]) continue;
             if(tmpc+cost[route.get(route.size()-1)][i]+visited[i]+cost[i][0]>budget)continue;
-            if(score+profit(i) / categoryCnt[category[i]]/n*(cost[route.get(route.size()-1)][i])<bestScore)continue;
+            //这两个剪枝是错的，当找到1234567之后回溯到1，2，7肯定比best小
+//            if(score+profit(i) /((double)categoryCnt[category[i]]/n*(cost[route.get(route.size()-1)][i]))<bestScore)continue;
+//            if(score+scoreInRoute(categoryCnt,route.get(route.size()-1) ,i )<bestScore)continue;
 
 
             tmpc+=(cost[route.get(route.size()-1)][i]+visited[i]);
 //            System.out.println("visit : "+i+" cost "+tmpc);
 
-//            score+= profit(i) / ((double)categoryCnt[category[i]]/n*(cost[route.get(route.size()-1)][i]+visited[i]));
             score+=scoreInRoute(categoryCnt,route.get(route.size()-1) ,i );
 //            System.out.println("from "+route.get(route.size()-1)+ " to "+ i+" "+scoreInRoute(categoryCnt,route.get(route.size()-1) ,i ));
 //            System.out.println(route.get(route.size()-1)+" scoreTo: " + i+" "+  profit(i) / ((double)categoryCnt[category[i]]/n*(cost[route.get(route.size()-1)][i]+visited[i])));
@@ -132,7 +141,9 @@ public class tspBack {
 //                System.out.println(bestRoute);
 //                System.out.println(bestScore);
             }
+            //todo 当前层(已经访问了1,2,3的bound)
             tspback(route,tmpc,score,idx+1);
+            //todo  当前层(访问了1,2 不访问3的bound)
 
             route.remove(route.size()-1);
             categoryCnt[category[i]]--;
@@ -152,7 +163,7 @@ public class tspBack {
 //        System.out.println(visited[0]);
         int i;
         for( i =0;i<route.size()-1;i++){
-            System.out.println(route.get(i)+" "+route.get(i+1)+" "+cost[route.get(i)][route.get(i+1)]+"visited: "+visited[route.get(i+1)]);
+//            System.out.println(route.get(i)+" "+route.get(i+1)+" "+cost[route.get(i)][route.get(i+1)]+"visited: "+visited[route.get(i+1)]);
             rssst+=cost[route.get(i)][route.get(i+1)]+visited[route.get(i+1)];
         }
 //        System.out.println(route.get(route.size()-1)+" to "+ cost[route.get(route.size()-1)][0]);
@@ -162,22 +173,83 @@ public class tspBack {
         return rssst;
     }
 
+
+
     public static void main(String[] args) {
         tspBack sl = new tspBack();
 //        System.out.println(sl.costTest(Arrays.asList(0, 8, 6)));
-        sl.init(29,960);
-        ArrayList<Integer> route = new ArrayList<>();
-        route.add(0);
-        System.out.println(profit(0));
-        //29 个点 960分钟  3137
-        long start = System.currentTimeMillis();
-        sl.tspback(route,visited[0] ,profit(0) ,0 );
-        System.out.println("运行时间："+(System.currentTimeMillis() - start));
+        for (int i = 500; i < 3000; i+=50) {
+            sl.init(29,i);
+            System.out.println(i+"budget");
+            ArrayList<Integer> route = new ArrayList<>();
+            route.add(0);
+//            System.out.println(profit(0));
+
+            long start = System.currentTimeMillis();
+            //没有加上第一个点的profit
+            //第一个点的profit和其他点不在一个数量级
+
+            sl.tspback(route,visited[0] ,0 ,0 );
+//        sl.tspback(route,visited[0] ,0 ,0 );
+            System.out.println("运行时间："+(System.currentTimeMillis() - start));
 
 //
-        System.out.println("best"+sl.bestRoute);
-        System.out.println(sl.bestCost);
-        System.out.println(sl.costTest(sl.bestRoute));
-        System.out.println(sl.bestScore);
+            System.out.println("bestRoute"+sl.bestRoute);
+            System.out.println("bestCost"+sl.bestCost);
+            System.out.println("bestScore"+sl.bestScore);
+            System.out.println("-------------");
+//            System.out.println("routeTest"+sl.costTest(sl.bestRoute));
+        }
+
+
+
+        /*无剪枝函数*/
+        /** 20 960
+         * 运行时间：132809
+         bestRoute[0, 11, 6, 18, 8, 13, 2, 17, 19, 7, 10]
+         bestCost932
+         bestScore1.6407110409852783
+         */
+
+        /** smallcase 10个点的固定数据 3000
+         运行时间：63
+         bestRoute[0, 5, 1, 9, 8, 2, 6, 7, 4, 3]
+         bestCost1015
+         bestScore0.8269346653041568
+
+
+         greedy:
+         [0, 2, 5, 7, 6, 8, 9, 3, 1, 4, 0, 0, 0]
+         最后score0.7692902405427814
+         最后cost1146
+
+         brute: 10 3000
+         实验结果[5, 1, 9, 8, 2, 6, 7, 4, 3] 0.8269346653041568 花费 1015
+         [3, 2, 5, 8, 6, 7, 4, 9, 1] 0.8338616723625093
+         **/
+
+
+        /**
+         *
+         * smallcase 10个点 480
+         * back:
+         * bestRoute[0, 1, 7, 2, 6]
+         bestCost459
+         bestScore0.7250695980491232
+
+         greey:
+         [0, 2, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+         最后score0.6344045241386022
+         最后cost452
+
+         正确性
+         459
+         实验结果[1, 7, 2, 6] 0.7250695980491232 花费 459
+
+
+         */
+//        sl.initSmasll(300);
+
+
     }
 }

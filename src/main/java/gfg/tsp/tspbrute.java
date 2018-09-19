@@ -26,7 +26,7 @@ public class tspbrute {
 
 //    static int[] visited ={36,54,41,33,20,55,};
     static int[] visited =new int[]{36,21,33,48,45,48,39,37,25,43,};
-    static int budget = 300;
+    static int budget = 480;
 
 //    static int[] visited =new int[] {30,50,20,10,5};
 //    static double[] popular =new double[] {.411212,.232132,.233234,.12342,.343434};
@@ -179,6 +179,8 @@ public class tspbrute {
     }
 
     private static double scoreInRoute(int[] count,int from,int to){
+//        System.out.println(cost[from][to]);
+//        System.out.println(profit(to));
         return profit(to) / ((double)count[category[to]]/n*(cost[from][to]));
     }
     /**
@@ -194,6 +196,7 @@ public class tspbrute {
         // 一条路径
         int[] categoryCnt = new int[5];
         Arrays.fill(categoryCnt,1);
+        categoryCnt[category[0]]+=1;
         double score = profit(0);
         for (int i = 0; i <route.size() ; i++) {
             tmpcost+=cost[k][route.get(i)];
@@ -300,8 +303,11 @@ public class tspbrute {
         //greedy的最优解[1130.0, 45.120939850000006]
 //        List<Integer> route = Arrays.asList(2, 3, 5, 8, 4, 7, 9, 6, 1);
 //        System.out.println(costTest(Arrays.asList(2,9)));
-        System.out.println(Arrays.toString(oneRouteScoreCost(Arrays.asList(1, 6))));
-//        System.out.println(Arrays.deepToString(cost));
+        //0.80
+
+
+//        System.out.println(Arrays.toString(oneRouteScoreCost(Arrays.asList(3, 2, 5, 8, 6, 7, 4, 9, 1))));
+        System.out.println(Arrays.deepToString(cost));
         List<List<Integer>> subpoints = subset4permu();
 
 //        HashMap<List<Integer>, Double> score = subPoisScore(subpermutation);

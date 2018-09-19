@@ -1,5 +1,8 @@
 package javaquickTest.lambdaStream;
 
+/**
+ * 类型推断
+ */
 @FunctionalInterface
 interface IMath{
     int add(int x,int y);
