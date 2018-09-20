@@ -7,7 +7,7 @@ public class intervalMerge {
     public static void main(String[] args) {
         List<UserTimeInterval> intervals = readUserTime.buildInterval();
         intervals.sort((a,b)->b.end.compareTo(a.end));
-
+//        System.out.println(intervals);
         List<UserTimeInterval> rst = new ArrayList<>();
         for(UserTimeInterval interval:intervals){
             int stackTopStart = rst.get(rst.size() - 1).start.getMinute();
@@ -17,10 +17,10 @@ public class intervalMerge {
             if(rst.size()<1){
                 rst.add(interval);
             }
-            //两个人的起始时间不超过20分钟
-            else  if(tmpEnd>stackTopStart&&Math.abs(tmpStart-stackTopStart)<20){
 
-            }
+           while (stackTopEnd-tmpEnd<30){
+
+           }
         }
     }
 }

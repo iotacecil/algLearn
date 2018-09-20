@@ -13,6 +13,7 @@ class OsakaGraph{
     int[] poiID = new int[29];
    HashMap<Integer,String> poi2Category;
    double[] frequent;
+   int[] visit;
 
 
 
@@ -25,6 +26,10 @@ class OsakaGraph{
         graph.osakaCost = osakaCost;
         graph.poi2Category = poi2Category;
         graph.frequent = frequent;
+        return graph;
+    }
+    public static OsakaGraph addVisit(OsakaGraph graph,int[] visit){
+        graph.visit = visit;
         return graph;
     }
 
@@ -50,6 +55,8 @@ class OsakaGraph{
        print2d(osakaCost);
         System.out.println(Arrays.toString(frequent));
         System.out.println(poi2Category);
+        System.out.println("visit");
+        System.out.println(Arrays.toString(visit));
 
     }
 }

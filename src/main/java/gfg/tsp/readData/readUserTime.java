@@ -14,16 +14,17 @@ class UserTimeInterval{
     String userId;
     LocalTime start;
     LocalTime end;
-    Duration duration;
+    int duration;
     int poiV;
 
     public UserTimeInterval(String userId, LocalTime start, LocalTime end, Duration duration, int poiV) {
         this.userId = userId;
         this.start = start;
         this.end = end;
-        this.duration = duration;
+        this.duration = (int)duration.toMinutes();
         this.poiV = poiV;
     }
+
 
     @Override
     public String toString() {
@@ -98,6 +99,7 @@ public class readUserTime {
     }
     public static void main(String[] args) {
         List<UserTimeInterval> intervals = readUserTime.buildInterval();
+        System.out.println(intervals);
         System.out.println(intervals.size());
     }
 }
