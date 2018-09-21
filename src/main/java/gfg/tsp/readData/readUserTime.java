@@ -12,16 +12,17 @@ import java.util.*;
 
 class UserTimeInterval{
     String userId;
-    LocalTime start;
-    LocalTime end;
+    //minutes
+    int start;
+    int end;
     int duration;
     int poiV;
 
-    public UserTimeInterval(String userId, LocalTime start, LocalTime end, Duration duration, int poiV) {
+    public UserTimeInterval(String userId, int start, int end, long duration, int poiV) {
         this.userId = userId;
         this.start = start;
         this.end = end;
-        this.duration = (int)duration.toMinutes();
+        this.duration = (int)duration;
         this.poiV = poiV;
     }
 
@@ -71,7 +72,7 @@ public class readUserTime {
 
                 long minus = dur.toMinutes();
                 if(minus<30)continue;
-                UserTimeInterval interval = new UserTimeInterval(ls[1], startLocal, endLocal, dur, Integer.parseInt(ls[6]));
+                UserTimeInterval interval = new UserTimeInterval(ls[1], startLocal.toSecondOfDay()/60, endLocal.toSecondOfDay()/60, dur.toMinutes(), Integer.parseInt(ls[6]));
                 intervals.add(interval);
 
 

@@ -1,5 +1,5 @@
 package other_oj;
-
+//http://acm.hdu.edu.cn/showproblem.php?pid=1404
 public class hdu1404 {
     //560428...
     /*

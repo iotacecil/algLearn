@@ -81,6 +81,7 @@ public class readCost {
 
                 // use comma as separator
                 line = line.replace("\"","" );
+                System.out.println(line);
 
                 String[] ls = line.split(cvsSplitBy);
                 int from = Integer.parseInt(ls[0])-1;
