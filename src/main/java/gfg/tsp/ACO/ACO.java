@@ -1,123 +1,262 @@
-//package gfg.tsp.ACO;
+package gfg.tsp.ACO;
+
+
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+//蚁群算法是一种本质上并行的算法。每只蚂蚁搜索的过程彼此独立，仅通过信息激素进行通信。
+// 所以蚁群算法则可以看作是一个分布式的多agent系统
+public class ACO {
+
+    private Ant[] ants; // 蚂蚁
+    private int antNum; // 蚂蚁数量
+    private int cityNum; // 城市数量
+    private int MAX_GEN; // 运行代数
+    private float[][] pheromone; // 信息素矩阵
+    private int[][] distance; // 距离矩阵
+    //用贪心算一个
+    private double bestScore;
+    private int bestLength; // 最佳长度
+    private int[] bestTour; // 最佳路径
+
+
+    int budget = 480;
+    private int cateNum;
+    private int[] category;
+    private int[] visit;
+    private double[] cateScore;
+    private double[] popular;
+
+    // 三个参数
+    private float alpha;
+    private float beta;
+    private float rho; //蒸发系数
+
+    public ACO() {
+
+    }
+
+    /**
+     * constructor of ACO
+     *
+     * @param n
+     *            城市数量
+     * @param m
+     *            蚂蚁数量
+     * @param g
+     *            运行代数
+     * @param a
+     *            alpha
+     * @param b
+     *            beta
+     * @param r
+     *            rho
+     *
+     **/
+    public ACO(int n, int m, int g, float a, float b, float r) {
+        cityNum = n;
+        antNum = m;
+        ants = new Ant[antNum];
+        MAX_GEN = g;
+        alpha = a;
+        beta = b;
+        rho = r;
+    }
+
+    // 给编译器一条指令，告诉它对被批注的代码元素内部的某些警告保持静默
+    @SuppressWarnings("resource")
+    /**
+     * 初始化ACO算法类
+     * @param filename 数据文件名，该文件存储所有城市节点坐标数据
+     * @throws IOException
+     */
+    private void init(String filename) throws IOException {
+        // 读取数据
+//        int[] x;
+//        int[] y;
+        String strbuff;
+        BufferedReader data = new BufferedReader(new InputStreamReader(
+                new FileInputStream(filename)));
+        distance = new int[cityNum][cityNum];
+//        x = new int[cityNum];
+//        y = new int[cityNum];
+        for (int i = 0; i < cityNum; i++) {
+            // 读取一行数据，数据格式1 6734 1453
+            strbuff = data.readLine();
+            // 字符分割
+//            String[] strcol = strbuff.split(" ");
+            String[] strcol = strbuff.split(",");
+            for (int j = 0; j <cityNum ; j++) {
+                distance[i][j] = Integer.parseInt(strcol[j]);
+            }
+//            x[i] = Integer.valueOf(strcol[1]);// x坐标
+//            y[i] = Integer.valueOf(strcol[2]);// y坐标
+        }
+        visit = new int[cityNum];
+        strbuff = data.readLine();
+        String[] strcol = strbuff.split(",");
+        for (int i = 0; i < cityNum; i++) {
+            visit[i] = Integer.parseInt(strcol[i]);
+        }
+        strbuff = data.readLine();
+        cateNum = Integer.parseInt(strbuff);
+        strbuff = data.readLine();
+        strcol = strbuff.split(",");
+        category = new int[cityNum];
+        for (int i = 0; i <cityNum ; i++) {
+            category[i] = Integer.parseInt(strcol[i]);
+        }
+        strbuff = data.readLine();
+        strcol = strbuff.split(",");
+        cateScore = new double[cateNum+1];
+        for (int i = 0; i <cateNum+1 ; i++) {
+            cateScore[i] = Double.parseDouble(strcol[i]);
+        }
+        strbuff = data.readLine();
+        strcol = strbuff.split(",");
+        popular = new double[cityNum];
+        for (int i = 0; i <cityNum ; i++) {
+            popular[i] = Double.parseDouble(strcol[i]);
+        }
+
+
+
 //
-//import java.io.FileNotFoundException;
-//
-///**
-// *蚁群优化算法，用来求解TSP问题
-// */
-//public class ACO {
-//
-//
-//
-//
-//
-//        ant []ants; //定义蚂蚁群
-//        int antcount;//蚂蚁的数量
-//        int [][]distance;//表示城市间距离
-//        double [][]tao;//信息素矩阵
-//        int citycount;//城市数量
-//        int[]besttour;//求解的最佳路径
-//        int bestlength;//求的最优解的长度
-//        //filename tsp数据文件
-//        //antnum 系统用到蚂蚁的数量
-//        public void init(String filename,int antnum) throws FileNotFoundException, IOException{
-//            antcount=antnum;
-//            ants=new ant[antcount];
-//            //读取数据tsp里的数据包括第I个城市与城市的X,Y坐标
-//            int[] x;
-//            int[] y;
-//            String strbuff;
-//            BufferedReader tspdata = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
-//            strbuff = tspdata.readLine();//读取第一行，城市总数（按文件格式读取）
-//            citycount = Integer.valueOf(strbuff);
-//            distance = new int[citycount][citycount];
-//            x = new int[citycount];
-//            y = new int[citycount];
-//            for (int citys = 0; citys < citycount; citys++) {
-//                strbuff = tspdata.readLine();
-//                String[] strcol = strbuff.split(" ");
-//                x[citys] = Integer.valueOf(strcol[1]);//读取每排数据的第2二个数字即横坐标
-//                y[citys] = Integer.valueOf(strcol[2]);
-//            }
-//            //计算两个城市之间的距离矩阵，并更新距离矩阵
-//            for (int city1 = 0; city1 < citycount - 1; city1++) {
-//                distance[city1][city1] = 0;
-//                for (int city2 = city1 + 1; city2 < citycount; city2++) {
-//                    distance[city1][city2] = (int) (Math.sqrt((x[city1] - x[city2]) * (x[city1] - x[city2])
-//                            + (y[city1] - y[city2]) * (y[city1] - y[city2])));
-//                    distance[city2][city1] = distance[city1][city2];//距离矩阵是对称矩阵
+////         计算距离矩阵
+////         针对具体问题，距离计算方法也不一样，此处用的是att48作为案例，它有48个城市，距离计算方法为伪欧氏距离，最优值为10628
+//        for (int i = 0; i < cityNum - 1; i++) {
+//            distance[i][i] = 0; // 对角线为0
+//            for (int j = i + 1; j < cityNum; j++) {
+//                double rij = Math
+//                        .sqrt(((x[i] - x[j]) * (x[i] - x[j]) + (y[i] - y[j])
+//                                * (y[i] - y[j])) / 10.0);
+//                // 四舍五入，取整
+//                int tij = (int) Math.round(rij);
+//                if (tij < rij) {
+//                    distance[i][j] = tij + 1;
+//                    distance[j][i] = distance[i][j];
+//                } else {
+//                    distance[i][j] = tij;
+//                    distance[j][i] = distance[i][j];
 //                }
-//            }
-//            distance[citycount - 1][citycount - 1] = 0;
-//            //初始化信息素矩阵
-//            tao=new double[citycount][citycount];
-//            for(int i=0;i<citycount;i++)
-//            {
-//                for(int j=0;j<citycount;j++){
-//                    tao[i][j]=0.1;
-//                }
-//            }
-//            bestlength=Integer.MAX_VALUE;
-//            besttour=new int[citycount+1];
-//            //随机放置蚂蚁
-//            for(int i=0;i<antcount;i++){
-//                ants[i]=new ant();
-//                ants[i].RandomSelectCity(citycount);
 //            }
 //        }
-//        //maxgen ACO的最多循环次数
-//        public void run(int maxgen){
-//            for(int runtimes=0;runtimes<maxgen;runtimes++){
-//                //每次迭代，所有蚂蚁都要跟新一遍，走一遍
-//                //System.out.print("no>>>"+runtimes);
-//                //每一只蚂蚁移动的过程
-//                for(int i=0;i<antcount;i++){
-//                    for(int j=1;j<citycount;j++){
-//                        ants[i].SelectNextCity(j,tao,distance);//每只蚂蚁的城市规划
-//                    }
-//                    //计算蚂蚁获得的路径长度
-//                    ants[i].CalTourLength(distance);
-//                    if(ants[i].tourlength<bestlength){
-//                        //保留最优路径
-//                        bestlength=ants[i].tourlength;
-//                        //runtimes仅代表最大循环次数，但是只有当，有新的最优路径的时候才会显示下列语句。
-//                        //如果后续没有更优解（收敛），则最后直接输出。
-//                        System.out.println("第"+runtimes+"代(次迭代)，发现新的最优路径长度："+bestlength);
-//                        for(int j=0;j<citycount+1;j++)
-//                            besttour[j]=ants[i].tour[j];//更新路径
-//                    }
+        System.out.println(Arrays.deepToString(distance));
+        distance[cityNum - 1][cityNum - 1] = 0;
+        // 初始化信息素矩阵
+        pheromone = new float[cityNum][cityNum];
+        for (int i = 0; i < cityNum; i++) {
+            for (int j = 0; j < cityNum; j++) {
+                pheromone[i][j] = 0.1f; // 初始化为0.1
+            }
+        }
+        bestLength = Integer.MAX_VALUE;
+        bestScore=0;
+        bestTour = new int[cityNum + 1];
+        // 随机放置蚂蚁
+        for (int i = 0; i < antNum; i++) {
+            ants[i] = new Ant(cityNum);
+            System.out.println("初始化蚂蚁");
+            ants[i].init(distance, alpha, beta,visit,cateNum,category,cateScore,popular);
+        }
+    }
+
+    public void solve() {
+        // 迭代MAX_GEN次
+        for (int g = 0; g < MAX_GEN; g++) {
+            // antNum只蚂蚁
+            for (int i = 0; i < antNum; i++) {
+                // i这只蚂蚁走cityNum步，完整一个TSP
+                System.out.println(ants[i].allowedCities);
+                while (ants[i].curcost<budget&&ants[i].allowedCities.size()>0){
+                    ants[i].selectNextCity(pheromone);
+
+                }
+//                for (int j = 1; j < cityNum; j++) {
+//                    ants[i].selectNextCity(pheromone);
 //                }
-//                //更新信息素矩阵
-//                UpdateTao();
-//                //重新随机设置蚂蚁
-//                for(int i=0;i<antcount;i++){
-//                    ants[i].RandomSelectCity(citycount);
-//                }
-//            }
-//        }
-//        /**
-//         * 更新信息素矩阵
-//         */
-//        private void UpdateTao(){
-//            double rou=0.5;
-//            //信息素挥发
-//            for(int i=0;i<citycount;i++)
-//                for(int j=0;j<citycount;j++)
-//                    tao[i][j]=tao[i][j]*(1-rou);
-//            //信息素更新
-//            for(int i=0;i<antcount;i++){
-//                for(int j=0;j<citycount;j++){
-//                    tao[ants[i].tour[j]][ants[i].tour[j+1]]+=1.0/ants[i].tourlength;
-//                }
-//            }
-//        }
-//        /* 输出程序运行结果
-//         */
-//        public void ReportResult(){
-//            System.out.println("最优路径长度是"+bestlength);
-//            System.out.println("蚁群算法最优路径输出：");
-//            for(int j=0;j<citycount+1;j++)
-//                System.out.print( besttour[j]+">>");//输出最优路径
-//        }
-//    }
-//}
+
+                System.out.println("第"+g+"次迭代 第"+i+"只蚂蚁");
+                if(ants[i].curcost+distance[ants[i].tabu.get(ants[i].tabu.size()-1)][0]>budget)continue;
+                System.out.println("score+"+ants[i].curscore);
+                // 查看这只蚂蚁行走路径距离是否比当前距离优秀
+                if (ants[i].curscore> bestScore) {
+                    // 比当前优秀则拷贝优秀TSP路径
+                    // 回到起点 起点不算分
+                    System.out.println("更新score");
+                    bestScore = ants[i].curscore;
+                    ants[i].getTabu().add(ants[i].getFirstCity());
+                    bestLength = ants[i].curcost+distance[ants[i].tabu.get(ants[i].tabu.size()-1)][0];
+                    for (int k = 0; k < ants[i].tabu.size(); k++) {
+                        bestTour[k] = ants[i].getTabu().get(k).intValue();
+                    }
+                }
+                // 更新这只蚂蚁的信息数变化矩阵，对称矩阵
+                for (int j = 0; j <  ants[i].tabu.size()-1; j++) {
+//                    ants[i].getDelta()[ants[i].getTabu().get(j).intValue()][ants[i]
+//                            .getTabu().get(j + 1).intValue()] = (float) (1. / ants[i]
+//                            .getScore());
+                    ants[i].getDelta()[ants[i].getTabu().get(j).intValue()][ants[i]
+                            .getTabu().get(j + 1).intValue()] = (float) (ants[i]
+                            .curscore);
+                    ants[i].getDelta()[ants[i].getTabu().get(j + 1).intValue()][ants[i]
+                            .getTabu().get(j).intValue()] = (float) (ants[i]
+                            .curscore);
+                }
+            }
+            // 更新信息素
+            updatePheromone();
+            // 重新初始化蚂蚁
+            for (int i = 0; i < antNum; i++) {
+                ants[i].init(distance, alpha, beta,visit,cateNum,category,cateScore,popular);
+            }
+        }
+
+        // 打印最佳结果
+        printOptimal();
+    }
+
+    // 更新信息素
+    private void updatePheromone() {
+        // 信息素挥发
+        for (int i = 0; i < cityNum; i++)
+            for (int j = 0; j < cityNum; j++)
+                pheromone[i][j] = pheromone[i][j] * (1 - rho);
+        // 信息素更新
+        for (int i = 0; i < cityNum; i++) {
+            for (int j = 0; j < cityNum; j++) {
+                for (int k = 0; k < antNum; k++) {
+                    pheromone[i][j] += ants[k].getDelta()[i][j];
+                }
+            }
+        }
+    }
+
+    private void printOptimal() {
+        System.out.println("The optimal length is: " + bestLength);
+        System.out.println("best score: "+bestScore);
+        System.out.println("The optimal tour is: ");
+        for (int i = 0; i < cityNum + 1; i++) {
+            System.out.print (bestTour[i]+" ");
+        }
+    }
+
+
+    /**
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        System.out.println("Start....");
+        ACO aco = new ACO(10, 10, 100, 1.f, 5.f, 0.5f);
+        aco.init("src/main/java/gfg/tsp/ACO/commonTest");
+        aco.solve();
+    }
+
+}
+
