@@ -71,7 +71,7 @@ public class tspBack {
         category= new int[]{1,2,3,4,1,2,3,4,1,2};
         used = new boolean[n];
         popular =new double[] {0.9035,0.131809,0.773522,0.47438,0.178228,0.757622,0.17774,0.662343,0.830317,0.271706,};
-        visited =new int[]{,};
+        visited =new int[]{36,21,33,48,45,48,39,37,25,43};
         weight = new double[]{0.123264,0.0812708,0.627277,0.922849,0.834773,0.51677,0.812952,0.327586,0.504624,0.560625,};
         cataScore= new double[]{0.123264,0.0812708,0.627277,0.922849,0.434333};
         //起点
@@ -178,9 +178,10 @@ public class tspBack {
     public static void main(String[] args) {
         tspBack sl = new tspBack();
 //        System.out.println(sl.costTest(Arrays.asList(0, 8, 6)));
-        for (int i = 500; i < 3000; i+=50) {
-            sl.init(29,i);
-            System.out.println(i+"budget");
+//        for (int i = 500; i < 3000; i+=50) {
+//            sl.init(29,i);
+            sl.initSmasll(480);
+//            System.out.println(i+"budget");
             ArrayList<Integer> route = new ArrayList<>();
             route.add(0);
 //            System.out.println(profit(0));
@@ -199,7 +200,7 @@ public class tspBack {
             System.out.println("bestScore"+sl.bestScore);
             System.out.println("-------------");
 //            System.out.println("routeTest"+sl.costTest(sl.bestRoute));
-        }
+//        }
 
 
 

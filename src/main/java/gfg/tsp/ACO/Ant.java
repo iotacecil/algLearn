@@ -75,7 +75,7 @@ public class Ant implements Cloneable {
         this.popular = popular;
         this.category = category;
 
-        System.out.println(Arrays.toString(popular));
+      //  System.out.println(Arrays.toString(popular));
 
         // 初始信息数变化矩阵为0
         delta = new float[cityNum][cityNum];
@@ -105,6 +105,7 @@ public class Ant implements Cloneable {
         tabu.add(Integer.valueOf(firstCity));
         // 当前城市为起始城市
         currentCity = firstCity;
+        Arrays.fill(categoryCnt, 1);
         categoryCnt[category[0]]++;
 
     }
@@ -123,25 +124,27 @@ public class Ant implements Cloneable {
 
         float[] p = new float[cityNum];
         float sum = 0.0f;
-        System.out.println(curcost);
-        System.out.println("当前路线"+tabu);
         int tmpsize = allowedCities.size();
+
         List<Integer> toremove = new ArrayList<>();
         //删除不能超出budget的点
         for(Integer i:allowedCities){
             if(curcost+distance[tabu.get(tabu.size()-1)][i]+visit[i]+distance[i][0]>budget){
-                System.out.println("删除"+i);
                 toremove.add(i);
             }
         }
         for(Integer rmv:toremove){
             allowedCities.remove(rmv);
         }
+        if(allowedCities.isEmpty())return;
+//        System.out.println("准备计算分母"+allowedCities);
+//        System.out.println(Arrays.deepToString(pheromone));
         // 计算分母部分
         for (Integer i : allowedCities) {
             sum += Math.pow(pheromone[currentCity][i.intValue()], alpha)
                     * Math.pow(1.0 / distance[currentCity][i.intValue()], beta);
         }
+//        System.out.println("分母部分 "+sum);
         // 计算概率矩阵
         for (int i = 0; i < cityNum; i++) {
             boolean flag = false;
@@ -157,9 +160,11 @@ public class Ant implements Cloneable {
                 p[i] = 0.f;
             }
         }
+//        System.out.println("概率");
+//        System.out.println(Arrays.toString(p));
         // 轮盘赌选择下一个城市
-//        Random random = new Random(System.currentTimeMillis());
-        Random random = new Random();
+        Random random = new Random(System.currentTimeMillis());
+//        Random random = new Random();
         float sleectP = random.nextFloat();
         int selectCity = 0;
         float sum1 = 0.f;
@@ -170,16 +175,17 @@ public class Ant implements Cloneable {
                 break;
             }
         }
-        System.out.println("选择"+selectCity);
+//        System.out.println("curcity: "+currentCity+" 选择 "+selectCity);
 
         //算分
-        curcost+=(distance[tabu.get(tabu.size()-1)][selectCity]+visit[selectCity]);
+        curcost+=(distance[currentCity][selectCity]+visit[selectCity]);
 
         if(curcost+distance[selectCity][0]<budget){
             curscore+=scoreInRoute(categoryCnt,currentCity ,selectCity);
+//            System.out.println("加分"+scoreInRoute(categoryCnt,currentCity ,selectCity));
+//            System.out.println("当前总分"+curscore);
             categoryCnt[category[selectCity]]++;
         }
-
 
         // 从允许选择的城市中去除select city
         for (Integer i : allowedCities) {
@@ -188,9 +194,11 @@ public class Ant implements Cloneable {
                 break;
             }
         }
+
         // 在禁忌表中添加select city
         tabu.add(Integer.valueOf(selectCity));
-        System.out.println("添加路线"+tabu);
+      //  System.out.println("添加路线"+tabu);
+      //  System.out.println("-----------------");
         // 将当前城市改为选择的城市
         currentCity = selectCity;
     }
@@ -202,7 +210,7 @@ public class Ant implements Cloneable {
     private double scoreInRoute(int[] count,int from,int to){
         return profit(to) / ((double)count[category[to]]/cityNum*(distance[from][to]+visit[to]));
     }
-    double score;
+
 
     /**
      * 计算当前除去起点终点的得分

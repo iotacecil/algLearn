@@ -197,13 +197,16 @@ public class tspbrute {
         int[] categoryCnt = new int[5];
         Arrays.fill(categoryCnt,1);
         categoryCnt[category[0]]+=1;
-        double score = profit(0);
+//        double score = profit(0);
+        double score =0;
         for (int i = 0; i <route.size() ; i++) {
             tmpcost+=cost[k][route.get(i)];
 //            System.out.println("from: "+ k + " to: "+ route.get(i)+" cost : "+ cost[k][route.get(i)]);
             if(tmpcost>budget)return new double[]{budget,-1};
 //            score += (profit(route.get(i)) / ((double)categoryCnt[category[route.get(i)]]*(cost[k][route.get(i)]))/n);
             score+=scoreInRoute(categoryCnt,k,route.get(i));
+            //打印 加分路线
+//            System.out.println("from"+k+"To"+route.get(i)+"加分"+scoreInRoute(categoryCnt,k,route.get(i)));
 //            System.out.println("from "+k+" To: "+route.get(i) +" score " + scoreInRoute(categoryCnt,k,route.get(i)));
 
             categoryCnt[category[route.get(i)]]++;
@@ -306,7 +309,7 @@ public class tspbrute {
         //0.80
 
 
-//        System.out.println(Arrays.toString(oneRouteScoreCost(Arrays.asList(3, 2, 5, 8, 6, 7, 4, 9, 1))));
+        System.out.println(Arrays.toString(oneRouteScoreCost(Arrays.asList(2,5,1))));
         System.out.println(Arrays.deepToString(cost));
         List<List<Integer>> subpoints = subset4permu();
 

@@ -268,11 +268,11 @@ public class tspGreedy {
          最后score2.1218893714686846
          最后cost2915
          */
-        for (int i = 500; i < 3000; i+=50) {
-            sl.init(29, i);
-            System.out.println(i+"budget");
+//        for (int i = 500; i < 3000; i+=50) {
+//            sl.init(29, i);
+//            System.out.println(i+"budget");
 
-//        sl.smallcase2(400);
+        sl.smallcase2(480);
 //        System.out.println(Arrays.toString(sl.oneRouteScoreCost(Arrays.asList(3, 2, 5, 8, 6, 7, 4, 9, 1))));
 
             long a = System.currentTimeMillis();
@@ -280,6 +280,6 @@ public class tspGreedy {
             long b = System.currentTimeMillis();
 //            long c = b - a;
             System.out.println("运行时间为:" + (b-a));//输出运行时间
-        }
+//        }
     }
 }

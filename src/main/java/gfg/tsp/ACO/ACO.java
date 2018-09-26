@@ -161,7 +161,7 @@ public class ACO {
         // 随机放置蚂蚁
         for (int i = 0; i < antNum; i++) {
             ants[i] = new Ant(cityNum);
-            System.out.println("初始化蚂蚁");
+
             ants[i].init(distance, alpha, beta,visit,cateNum,category,cateScore,popular);
         }
     }
@@ -182,16 +182,22 @@ public class ACO {
 //                }
 
                 System.out.println("第"+g+"次迭代 第"+i+"只蚂蚁");
-                if(ants[i].curcost+distance[ants[i].tabu.get(ants[i].tabu.size()-1)][0]>budget)continue;
-                System.out.println("score+"+ants[i].curscore);
+                System.out.println("找到的路线"+ants[i].tabu);
+                if(ants[i].curcost+distance[ants[i].tabu.get(ants[i].tabu.size()-1)][0]>budget){
+                    System.out.println("超了~~~~~");
+                    continue;
+                }
+//                System.out.println("score+"+ants[i].curscore);
                 // 查看这只蚂蚁行走路径距离是否比当前距离优秀
                 if (ants[i].curscore> bestScore) {
                     // 比当前优秀则拷贝优秀TSP路径
-                    // 回到起点 起点不算分
-                    System.out.println("更新score");
+
+//                    System.out.println("更新score");
                     bestScore = ants[i].curscore;
-                    ants[i].getTabu().add(ants[i].getFirstCity());
+                    // 回到起点 起点不算分
                     bestLength = ants[i].curcost+distance[ants[i].tabu.get(ants[i].tabu.size()-1)][0];
+
+                    ants[i].getTabu().add(ants[i].getFirstCity());
                     for (int k = 0; k < ants[i].tabu.size(); k++) {
                         bestTour[k] = ants[i].getTabu().get(k).intValue();
                     }
@@ -202,16 +208,25 @@ public class ACO {
 //                            .getTabu().get(j + 1).intValue()] = (float) (1. / ants[i]
 //                            .getScore());
                     ants[i].getDelta()[ants[i].getTabu().get(j).intValue()][ants[i]
-                            .getTabu().get(j + 1).intValue()] = (float) (ants[i]
-                            .curscore);
-                    ants[i].getDelta()[ants[i].getTabu().get(j + 1).intValue()][ants[i]
-                            .getTabu().get(j).intValue()] = (float) (ants[i]
-                            .curscore);
+                            .getTabu().get(j + 1).intValue()] = (float) (ants[i].curscore/(ants[i]
+                            .curcost));
+//                    System.out.println((float) (ants[i].curscore/(ants[i]
+//                            .curcost)));
+
+//                    ants[i].getDelta()[ants[i].getTabu().get(j + 1).intValue()][ants[i]
+//                            .getTabu().get(j).intValue()] = (float) (ants[i]
+//                            .curscore);
                 }
+//                System.out.println("delta: ");
+//                System.out.println(Arrays.deepToString(ants[i].getDelta()));
+//                System.out.println("Score+cost: ");
+//                System.out.println(ants[i].curscore);
+//                System.out.println(ants[i].curcost);
             }
             // 更新信息素
             updatePheromone();
             // 重新初始化蚂蚁
+            if(g==MAX_GEN-1)break;
             for (int i = 0; i < antNum; i++) {
                 ants[i].init(distance, alpha, beta,visit,cateNum,category,cateScore,popular);
             }

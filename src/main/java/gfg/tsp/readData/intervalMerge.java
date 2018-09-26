@@ -10,7 +10,8 @@ class groupInterval{
     int start;
     int end;
     int dur;
-//    int maxDurDif;
+    //每个被合并的子区间的diff累加
+    int innerDif;
     List<String> userIDs;
 
     public groupInterval(int groupId, int start, int end, int dur, List<String> userIDs) {

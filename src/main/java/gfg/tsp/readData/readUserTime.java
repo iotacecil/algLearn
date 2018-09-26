@@ -1,9 +1,6 @@
 package gfg.tsp.readData;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -38,7 +35,40 @@ class UserTimeInterval{
                 '}';
     }
 }
+
 public class readUserTime {
+    static void RriteInterval(List<UserTimeInterval> intervals){
+        String wFile = "E:\\小论文\\数据\\Untitled Folder\\interval2modie.csv";
+
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        String content = "This is the content writer in to a.txt file.\n";
+        String content1 = "这是要写入的内容";
+        try {
+            fw = new FileWriter(wFile, false);
+            bw = new BufferedWriter(fw);
+            for(UserTimeInterval interval:intervals) {
+
+                bw.write(interval.start+" ");
+                bw.write(interval.end+"\n");
+            }
+            System.out.println("完成");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(bw != null)
+                    bw.close();
+                if(fw != null)
+                    fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     static List<UserTimeInterval> buildInterval(){
         List<UserTimeInterval> intervals = new ArrayList<>();
         String csvFile = "E:\\小论文\\数据\\Untitled Folder\\Osaka_dur_poicnt.csv";
@@ -101,6 +131,7 @@ public class readUserTime {
     public static void main(String[] args) {
         List<UserTimeInterval> intervals = readUserTime.buildInterval();
         System.out.println(intervals);
+        RriteInterval(intervals);
         System.out.println(intervals.size());
     }
 }

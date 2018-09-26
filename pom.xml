@@ -25,6 +25,16 @@
         <artifactId>jts-core</artifactId>
         <version>1.14.0</version>
     </dependency>
+    <!--<dependency>-->
+        <!--<groupId>de.lmu.ifi.dbs.elki</groupId>-->
+        <!--<artifactId>elki</artifactId>-->
+        <!--<version>0.7.1</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+        <!--<groupId>de.lmu.ifi.dbs.elki</groupId>-->
+        <!--<artifactId>elki-batik-visualization</artifactId>-->
+        <!--<version>0.7.1</version>-->
+    <!--</dependency>-->
     <dependency>
         <groupId>com.vividsolutions</groupId>
         <artifactId>jts-io</artifactId>
