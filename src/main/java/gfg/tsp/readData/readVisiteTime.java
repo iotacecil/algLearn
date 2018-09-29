@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 public class readVisiteTime {
     public static OsakaGraph graphaddVisit(){
+        //添加 visit数据
         OsakaGraph graph = readCost.buildOsaka();
         String csvFile = "E:\\小论文\\数据\\Untitled Folder\\OsakaPoiVisit.csv";
         BufferedReader br = null;
@@ -23,7 +24,7 @@ public class readVisiteTime {
             String title = br.readLine();
 
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+//                System.out.println(line);
                 // use comma as separator
                 line = line.replace("\"","" );
 

@@ -207,6 +207,7 @@ public class ACO {
 //                    ants[i].getDelta()[ants[i].getTabu().get(j).intValue()][ants[i]
 //                            .getTabu().get(j + 1).intValue()] = (float) (1. / ants[i]
 //                            .getScore());
+                    //这个更新有问题
                     ants[i].getDelta()[ants[i].getTabu().get(j).intValue()][ants[i]
                             .getTabu().get(j + 1).intValue()] = (float) (ants[i].curscore/(ants[i]
                             .curcost));
