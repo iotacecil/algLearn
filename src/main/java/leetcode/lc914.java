@@ -2,8 +2,26 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class lc914 {
+    public boolean hasGroupsSizeXGCD(int[] deck) {
+        Map<Integer,Integer> count = new HashMap<>();
+        for(int c:deck){
+            count.put(c,count.getOrDefault(c,1 )+1);
+        }
+        int g = 0;
+        for (int i:count.values()) {
+            g = gcd(i,g);
+        }
+        return g>1;
+    }
+    private int gcd(int a,int b){
+        return b>0?gcd(b, a%b):a;
+    }
+
+        //94% 还是我厉害
     public boolean hasGroupsSizeX(int[] deck) {
         if(deck==null||deck.length<2)return false;
         int n = deck.length;
@@ -19,6 +37,7 @@ public class lc914 {
         }
         return false;
     }
+
     private boolean can(int[]deck,int k){
         if(k==1){
             for (int i = 0; i <deck.length-1 ; i++) {
@@ -42,6 +61,6 @@ public class lc914 {
     public static void main(String[] args) {
         int[] num = new int[]{1,1,0,0,1};
         lc914 sl = new lc914();
-        System.out.println(sl.hasGroupsSizeX(num));
+        System.out.println(sl.hasGroupsSizeXGCD(num));
     }
 }

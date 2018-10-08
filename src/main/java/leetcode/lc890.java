@@ -56,4 +56,5 @@ public class lc890 {
         lc890 sl = new lc890();
         sl.math2("abc","abb" );
     }
+
 }
