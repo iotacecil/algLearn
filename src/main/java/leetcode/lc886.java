@@ -6,6 +6,34 @@ import java.util.List;
 import java.util.Map;
 
 public class lc886 {
+    public boolean possibleBiparitition(int N,int[][] dislikes){
+        int[][] graph = new int[N][N];
+        //边集->无向图 邻接矩阵
+        for(int[] d:dislikes){
+            graph[d[0]-1][d[1]-1] = 1;
+            graph[d[1]-1][d[0]-1] = 1;
+        }
+        int[] group = new int[N];
+        for (int i = 0; i < N; i++) {
+            if(group[i] == 0&& !dfs2d(graph,group,i,1))return false;
+        }
+        return true;
+    }
+    //可不可以分到g组
+    private boolean dfs2d(int[][] graph,int[] group,int idx,int g){
+        group[idx] = g;
+        //行是邻边
+        for (int i = 0; i < graph.length; i++) {
+            if(graph[idx][i] == 1){
+                if(group[i] == g){
+                 return false;
+                }
+                if(group[i] == 0&&!dfs2d(graph,group,i,-g))return false;
+
+            }
+        }
+        return true;
+    }
     boolean[] marked;
     boolean[] color;
 

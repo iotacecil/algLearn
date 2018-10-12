@@ -1,37 +1,61 @@
 package other_oj;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 //4 Values whose Sum is 0
 //p160
-//Accepted	29716K	10329MS
+//Accepted	29716K	10329MS 其实还是二分快 可能是oj的map慢(?
 public class poj2785 {
 
     public static long cnt(int[] A, int[] B, int[] C, int[] D) {
-        int n = A.length;
-        int[] CD = new int[n * n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                CD[i * n + j] = C[i] + D[j];
+//        Accepted	138880K	19625MS	Java
+        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for (int i = 0; i <C.length ; i++) {
+            for (int j = 0; j <D.length ; j++) {
+                int sum = C[i] + D[j];
+                int cnt = 1;
+                if(map.get(sum)!=null){
+                    cnt+=map.get(sum);
+                }
+                map.put(sum,cnt );
             }
         }
-        Arrays.sort(CD);
-
-        long cnt = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int cd = -(A[i] + B[j]);
-                //WA 一个AB对应的CD要全部加上去 不然错过这个AB就漏掉了
-//                if (binarySearch(CD, cd))
-//                cnt++;
-                //两者相减正好是排好序之后的数组中某个元素的个数
-
-                cnt+=searchRange2(CD, cd)[0]==-1?0:searchRange2(CD, cd)[1]-searchRange2(CD, cd)[0]+1;
-
+        long res = 0;
+        for (int i = 0; i <A.length ; i++) {
+            for (int j = 0; j <B.length ; j++) {
+                int cnt = 1;
+                if(map.get(-(A[i]+B[j]))!=null){
+                    res+=map.get(-(A[i]+B[j]));
+                }
             }
         }
-        return cnt;
+        return res;
+//        int n = A.length;
+//        int[] CD = new int[n * n];
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                CD[i * n + j] = C[i] + D[j];
+//            }
+//        }
+//        Arrays.sort(CD);
+//
+//        long cnt = 0;
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                int cd = -(A[i] + B[j]);
+//                //WA 一个AB对应的CD要全部加上去 不然错过这个AB就漏掉了
+////                if (binarySearch(CD, cd))
+////                cnt++;
+//                //两者相减正好是排好序之后的数组中某个元素的个数
+//
+//                cnt+=searchRange2(CD, cd)[0]==-1?0:searchRange2(CD, cd)[1]-searchRange2(CD, cd)[0]+1;
+//
+//            }
+//        }
+//        return cnt;
     }
 //29716K	10500MS
     public static int[] searchRange2(int[] A, int target) {

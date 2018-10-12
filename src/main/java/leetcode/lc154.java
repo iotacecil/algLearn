@@ -1,6 +1,20 @@
 package leetcode;
 
 public class lc154 {
+
+    public int findMin2(int[] nums){
+        int s = -1, e = nums.length-1;
+        while (s+1<e){
+            int mid = (s+e)/2;
+            if(nums[mid]>nums[e]){
+              s = mid;
+            }else if(nums[mid]<=nums[e]){
+                e = mid;
+            }
+
+        }
+        return Math.min(nums[s],nums[e] );
+    }
     /**
      *
      * @param nums 有重复元素 222232 22222

@@ -1,7 +1,7 @@
 package leetcode;
 
 import java.util.*;
-//todo
+
 public class lc127 {
     public static void main(String[] args) {
         char[] a = {1,2,3,4,5,6};
