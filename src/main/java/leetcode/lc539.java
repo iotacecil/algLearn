@@ -34,6 +34,7 @@ public class lc539 {
     public int findMinDifference(List<String> timePoints) {
         int n = timePoints.size();
     //排序
+
       List<Time> times = new ArrayList<>();
       for(String t:timePoints){
           times.add(new Time(Integer.parseInt(t.split(":")[0]),Integer.parseInt(t.split(":")[1])));
@@ -51,6 +52,7 @@ public class lc539 {
     }
 
     //fast way 9ms
+
     public int findMinDifferenceFast(List<String> timePoints) {
         boolean[] times = new boolean[24*60];
         for(String time:timePoints){
