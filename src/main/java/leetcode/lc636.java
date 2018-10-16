@@ -3,18 +3,37 @@ package leetcode;
 import java.util.*;
 
 public class lc636 {
-    /**
-     * 15%
-     * 输入 n = 2
-     logs =
-     ["0:start:0",
-     "1:start:2",
-     "1:end:5",
-     "0:end:6"]
-     * @param n
-     * @param logs
-     * @return
-     */
+    public int[] exclusiveTime2(int n, List<String> logs) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        String[] s = logs.get(0).split(":");
+
+        stack.push(Integer.parseInt(s[0]));
+        int prev = Integer.parseInt(s[2]);
+        for (int i = 1; i < logs.size() ; i++) {
+            s = logs.get(i).split(":");
+            if (s[1].equals("start")){
+                if(!stack.isEmpty()){
+
+                }
+            }
+
+        }
+        return null;
+
+    }
+
+        /**
+         * 15%
+         * 输入 n = 2
+         logs =
+         ["0:start:0",
+         "1:start:2",
+         "1:end:5",
+         "0:end:6"]
+         * @param n
+         * @param logs
+         * @return
+         */
     public int[] exclusiveTime(int n, List<String> logs) {
         String[] s = logs.get(0).split(":");
         Deque<Integer> stack = new ArrayDeque<>();
