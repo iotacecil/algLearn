@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 public class lc200 {
     //union find模板
@@ -71,7 +73,51 @@ public class lc200 {
         return uf.count;
         }
 
-    public static void main(String[] args) {
+    public int numIslandsBFS(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] marked = new boolean[n][m];
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (!marked[i][j] && grid[i][j] == '1') {
+                    count++;
+                    bfs(grid,marked, i, j);
+
+                }
+            }
+        }
+        return count;
+    }
+    public void bfs(char[][] grid,boolean[][] marked,int x,int y){
+        int[][] dxy = {{1,0},{-1,0},{0,1},{0,-1}};
+        Deque<int[]> que = new ArrayDeque<>();
+        que.push(new int[]{x,y});
+        marked[x][y] = true;
+
+        while (!que.isEmpty()){
+            int[] xy = que.poll();
+            for (int i = 0; i <4 ; i++) {
+                int newx = xy[0] + dxy[i][0];
+                int newy = xy[1] + dxy[i][1];
+
+
+
+                if(newx < 0 || newx > marked.length || newy <0 || newy > marked[0].length){
+                    continue;
+                }
+
+                if(!marked[newx][newy] && grid[newx][newy] == '1'){
+                    que.add(new int[]{newx,newy});
+                    marked[newx][newy] = true;
+
+                }
+
+            }
+        }
+    }
+
+        public static void main(String[] args) {
         char[][] island = {
                 {'1','1','1','1','0'},
                 {'1','1','0','1','0'},
@@ -80,6 +126,6 @@ public class lc200 {
 
         };
         lc200 sl = new lc200();
-        System.out.println(sl.numIslands(island));
+        System.out.println(sl.numIslandsBFS(island));
     }
 }

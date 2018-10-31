@@ -3,14 +3,72 @@ package leetcode;
 import java.util.*;
 
 public class lc127 {
+    class Pair{
+        String word;
+        int step;
+
+        public Pair(String word, int step) {
+            this.word = word;
+            this.step = step;
+        }
+    }
+    public int ladderLengthcharGraph(String beginWord, String endWord, List<String> wordList) {
+        Map<String,List<String>> map = new HashMap<>();
+        List<String> words = new ArrayList<>(new HashSet<>(wordList));
+        words.add(beginWord);
+        if(!words.contains(endWord)){
+            return 0;
+        }
+        // graph build
+        for(int i = 0;i<words.size();i++){
+            String word1 = words.get(i);
+            List<String> word1List = map.getOrDefault(word1, new ArrayList<>());
+            for (int j = i+1; j <words.size() ; j++) {
+                String word2 = words.get(j);
+                if(dif(word1,word2 )){
+                    List<String> word2List = map.getOrDefault(word2, new ArrayList<>());
+                    word2List.add(word1);
+                    map.put(word2,word2List);
+                    word1List.add(word2);
+                }
+                map.put(word1,word1List );
+            }
+        }
+        // bfs
+        Deque<Pair> que = new ArrayDeque<>();
+        Set<String> visited = new HashSet<>();
+        que.add(new Pair(beginWord,1));
+        visited.add(beginWord);
+
+        while (!que.isEmpty()){
+            Pair top = que.poll();
+            int step = top.step;
+            List<String> neib = map.get(top.word);
+            for(String next : neib){
+                if(!visited.contains(next)){
+                    if(next.equals(endWord)){
+                        return step + 1;
+                    }
+                    que.add(new Pair(next,step+1));
+                    visited.add(next);
+                }
+            }
+        }
+        return 0;
+    }
     public static void main(String[] args) {
-        char[] a = {1,2,3,4,5,6};
-        char[] b = {1,2,3,4,5,6};
-        System.out.println(new String(a).equals(new String(b)));
-        HashSet<String> set = new HashSet<>();
-        set.add("hit");
-        String hit = "hit";
-        System.out.println(set.contains(hit));
+//        char[] a = {1,2,3,4,5,6};
+//        char[] b = {1,2,3,4,5,6};
+//        System.out.println(new String(a).equals(new String(b)));
+//        HashSet<String> set = new HashSet<>();
+//        set.add("hit");
+//        String hit = "hit";
+//        System.out.println(set.contains(hit));
+        String beginWord = "hit";
+        String endWord = "cog";
+        List<String> wordList = Arrays.asList("hot", "dot", "dog", "lot", "log", "cog");
+        lc127 ls = new lc127();
+        System.out.println(ls.ladderLengthcharGraph(beginWord, endWord, wordList));
 
     }
     private boolean dif(String difword,String cur){
@@ -25,10 +83,8 @@ public class lc127 {
     }
     public int ladderLengthchar(String beginWord, String endWord, List<String> wordList) {
         int cnt = 0;
-        HashSet<String> words = new HashSet<>();
-        for(String word:wordList){
-            words.add(word);
-        }
+
+        HashSet<String> words = new HashSet<>(wordList);
         Set<String> marked = new HashSet<>();
         Deque<String> que = new ArrayDeque<>();
         que.add(beginWord);
