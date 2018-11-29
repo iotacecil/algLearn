@@ -1,5 +1,5 @@
 package niuke.wangyi;
-
+//https://www.nowcoder.com/questionTerminal/fe30a13b5fb84b339cb6cb3f70dca699
 public class fentiandi {
 //    public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
