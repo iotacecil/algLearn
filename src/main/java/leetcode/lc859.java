@@ -11,28 +11,33 @@ package leetcode;
 //swap two letters in A so that the result equals B
 public class lc859 {
     public boolean buddyStrings(String A, String B) {
-        if(A.length()!=B.length())return false;
-        int[] a = new int[26];
-        int[] b = new int[26];
-        int diff = 0;
-        for(int i =0;i<A.length();i++){
-            if(A.charAt(i)!=B.charAt(i)&&diff++>2)return false;
-            // System.out.println(i);
-            a[A.charAt(i)-'a']++;
+        if(A.length() != B.length())return false;
 
-            b[B.charAt(i)-'a']++;
+        boolean same = false;
+        int[] acnt = new int[26];
+        int dif = 0;
+        int idx1 = -1,idx2=-1;
+        for(int i = 0;i<A.length();i++){
+            acnt[A.charAt(i) -'a']++;
+            if(acnt[A.charAt(i) -'a'] >=2)same = true;
+            if(dif == 0 && i == A.length()-1)return same;
+            if(A.charAt(i) != B.charAt(i)){
+
+                dif++;
+
+                if(dif>2)return false;
+                if(idx1 < 0 )idx1 = i;
+                else idx2 = i;
+            }
         }
-        for(int i =0;i<26;i++){
-            //为什么是>1
-            if(diff ==0&&a[i]>1)return true;
-            if(a[i]!=b[i])return false;
-        }
-        return diff == 2;
+//        System.out.println(idx1+" "+idx2);
+        if(idx1!=idx2)return A.charAt(idx1) == B.charAt(idx2) && A.charAt(idx2) ==B.charAt(idx1);
+        return false;
     }
 
     public static void main(String[] args) {
         lc859 sl = new lc859();
-        System.out.println(sl.buddyStrings("ab", "ba"));
+        System.out.println(sl.buddyStrings("ab", "ab"));
     }
 //    public boolean buddyStrings(String A, String B) {
 //        if(A.length() != B.length())return false;
