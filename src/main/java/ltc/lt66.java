@@ -1,6 +1,8 @@
 package ltc;
 
 import leetcode.TreeNode;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.Deque;
 import java.util.List;
 
 public class lt66 {
+//    Logger logger = LoggerFactory.getLogger(lt66.class);
     public List<Integer> preorderTraversalIt2(TreeNode root) {
         List<Integer> rst = new ArrayList<>();
         if(root == null){
@@ -18,6 +21,7 @@ public class lt66 {
             while (root != null) {
                 rst.add(root.val);
                 if(root.right != null)
+//                    logger.info(root.right.toString());
 //                System.out.println(root.right);
                     stack.push(root.right );
                 root = root.left;
@@ -51,6 +55,7 @@ public class lt66 {
     }
 
     public static void main(String[] args) {
+
         TreeNode root = new TreeNode(2);
         TreeNode three = new TreeNode(3);
         TreeNode one= new TreeNode(1);
