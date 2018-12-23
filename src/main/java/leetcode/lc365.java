@@ -1,7 +1,5 @@
 package leetcode;
 
-import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,6 +14,7 @@ public class lc365 {
         if(x + y < z)return false;
 
         if(z % gcd(x,y) == 0){
+            System.out.println(gcd(x,y));
             System.out.println(z/gcd(x,y ));
             return true;
         }else{
@@ -55,6 +54,6 @@ public class lc365 {
 
     public static void main(String[] args) {
         lc365 sl = new lc365();
-        System.out.println(sl.canMeasureWaterGCD(4, 1, 2));
+        System.out.println(sl.canMeasureWaterGCD(5, 7, 11));
     }
 }

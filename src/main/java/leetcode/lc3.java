@@ -1,9 +1,35 @@
 package leetcode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class lc3 {
+    public static void main(String[] args) {
+        String s = "tmmzuxt";
+        lc3 sl = new lc3();
+        System.out.println(sl.lengthOfLongestSubstring2(s));
+    }
+    public int lengthOfLongestSubstring2(String s) {
+        if(s==null || s.length() <1 )return 0;
+        int n = s.length();
+        int start = 0;
+        int mlen = 0;
+        Map<Character,Integer> map = new HashMap<>();
+        for(int i =0;i < n ;i++){
+            char c = s.charAt(i);
+            if(map.containsKey(c)){
+                start = Math.max(start,map.get(c) + 1);
+
+            }
+            System.out.println(c+" "+start);
+            mlen = Math.max(mlen,i - start +1);
+            map.put(c, i);
+        }
+        return mlen;
+    }
+
     public int lengthOfLongestSubstring(String s){
         int n = s.length();
         Set<Character> set = new HashSet<>();
