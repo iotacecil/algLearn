@@ -1,7 +1,5 @@
 package courseBook.dsLearn.binarySearchTree;
 
-import java.util.Collections;
-
 public class BST<T extends Comparable<T>> {
     // static是类的一部分 要声明具体的T类型
     public static <T extends Comparable<T>> BST<T> newEmptyBST() {
@@ -9,7 +7,7 @@ public class BST<T extends Comparable<T>> {
     }
 
     private class Node<T> {
-        Collections.sort();
+
         public T value;
         public Node<T> left;
         public Node<T> right;

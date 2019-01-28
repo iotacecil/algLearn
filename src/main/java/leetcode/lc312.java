@@ -6,6 +6,7 @@ import java.util.List;
 public class lc312
 {
     public int maxCoins(int[] nums) {
+
         int[] numsp = new int[nums.length + 2];
         int n = 1;
         for(int x : nums){
