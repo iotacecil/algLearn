@@ -2,44 +2,51 @@ package leetcode;
 
 public class lc984 {
     public String strWithout3a3b(int A, int B) {
+        char[] ans = new char[A+B];
+        int idx = 0;
+        char a = 'a';
+        char b = 'b';
         int acnt = 0;
         int bcnt = 0;
-        char[] sb = new char[A+B];
-        int idx =0;
-        char more = 'a' ;
-        char less =  'b';
-        //StringBuilder sb = new StringBuilder();
-        if(A < B){
-            int tmp = A;
-            A = B;
-            B = tmp;
-
-            more = 'b';
-            less = 'a';
-        }
-
-        int alla = 0;
-        int allb = 0;
-        while(idx<A+B){
-            while ((acnt+1)%3!=0 && alla <A){
-                sb[idx++] = more;
-                alla++;
+        while(A >0 || B >0)
+        {
+            while(A>0 && B >0 && A==B){
+                ans[idx++] = a;
+                A--;
+                ans[idx++] = b;
+                B--;
+            }
+            while(A>0 && A>B && acnt <2){
+                bcnt = 0;
+                ans[idx++] = a;
+                A--;
                 acnt++;
-
-                bcnt =0;
             }
-            if ((bcnt+1)%3!=0 && allb <B){
-                sb[idx++] = less;
+            if(acnt ==2 && B>0){
+                ans[idx++] = b;
+                B--;
                 bcnt++;
-                allb++;
-                acnt =0;
+                acnt = 0;
             }
+            while(B>0 && B>A && bcnt <2){
+                acnt = 0;
+                ans[idx++] = b;
+                B--;
+                bcnt++;
+            }
+            if(bcnt ==2 && A>0){
+                ans[idx++] = a;
+                A--;
+                acnt++;
+                bcnt = 0;
+            }
+
         }
-        return new String(sb);
+        return new String(ans);
     }
 
     public static void main(String[] args) {
         lc984 sl = new lc984();
-        System.out.println(sl.strWithout3a3b(4, 4));
+        System.out.println(sl.strWithout3a3b(1, 3));
     }
 }

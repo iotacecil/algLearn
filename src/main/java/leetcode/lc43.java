@@ -57,6 +57,7 @@ public class lc43 {
         String num1 = "999";
         String num2 = "999";
         lc43 sl = new lc43();
+
         System.out.println(sl.multiply(num1,num2));
     }
 }
