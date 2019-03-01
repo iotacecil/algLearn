@@ -13,6 +13,17 @@ public class lc206 {
         return pre;
     }
 
+    public ListNode reverse(ListNode head){
+        ListNode cur = null;
+        while (head!=null){
+            ListNode next = head.next;
+            head.next = cur;
+            cur = head;
+            head = next;
+        }
+        return cur;
+    }
+
     public static void main(String[] args) {
 
     }

@@ -27,6 +27,7 @@ public class singleton {
     }
 
     public static void main(String[] args) {
+
         singleton sg = singleton.getSingle();
         //1
         System.out.println(singleton.counter1);
