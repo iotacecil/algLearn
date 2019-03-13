@@ -40,7 +40,17 @@ public class lc405 {
         return new String(rst,idx+1,31-idx);
 
     }
-
+// 十进制转16进制
+    public String tohex(int num){
+        String hexs = "0123456789abcdef";
+        if(num == 0)return "0";
+        String rst = "";
+        while (num != 0){
+            rst = hexs.charAt((num & 15))+rst;
+            num = (num >>> 4);
+        }
+        return rst;
+    }
     public static void main(String[] args) {
         lc405 sl = new lc405();
         char[] str = new char[20];
@@ -48,6 +58,7 @@ public class lc405 {
         System.out.println(sl.dic2hex(26));
         System.out.println(Integer.toHexString(-15));
         System.out.println("------------");
-        System.out.println(-7&5);
+        System.out.println(-7&7);
+        System.out.println('a'^'c');
     }
 }
