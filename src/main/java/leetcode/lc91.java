@@ -48,20 +48,25 @@ public int numDecodings3(String s) {
     int n = s.length();
 
     int[] dp = new int[n+1];
-    dp[n]=1;
-    dp[n-1] = s.charAt(n-1)!='0'?1:0;
+    dp[0]=1;
+    dp[1] = s.charAt(0)!='0'?1:0;
 
-    for (int i = n-2; i>=0 ; i--) {
-        if(s.charAt(i)=='0')continue;
-        else dp[i] = (Integer.parseInt(s.substring(i,i+2))<=26?dp[i+1]+dp[i+2]:dp[i+1]);
+    for (int i = 2; i<=n ; i++) {
+        if(s.charAt(i-1)=='0')continue;
+        else {
+            int two = Integer.parseInt(s.substring(i - 2, i));
+
+            dp[i] = (two<=26?dp[i-1]+dp[i-2]:dp[i-1]);
+        }
     }
-    return dp[0];
+    return dp[n];
 
 }
 
 
     public static void main(String[] args) {
         lc91 sl = new lc91();
-        System.out.println(sl.numDecodings3("226"));
+        System.out.println(sl.numDecodings3("12"));
+//        System.out.println(Integer.parseInt("226".substring(1, 3)));
     }
 }

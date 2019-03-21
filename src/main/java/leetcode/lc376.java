@@ -3,42 +3,19 @@ package leetcode;
 public class lc376 {
 
     public int wiggleMaxLength(int[] nums) {
-        nums=new int[]{1,17,5,10,13,15,10,5,16,8};
-        if(nums==null||nums.length<1) return 0;
-        if(nums.length<2)return nums.length;
-
-        final int begin = 0;
-        final  int up = 1;
-        final int down = -1;
+        if(nums == null)return 0;
+        int n = nums.length;
+        if(n < 2)return n;
+        int predif = 0;
         int cnt = 1;
-        int state = begin;
-        for (int i = 1; i < nums.length; i++) {
-            switch(state){
-                case begin:
-                    if(nums[i]>nums[i-1]){
-                        cnt++;
-                        state = up;
-                    }else if(nums[i]<nums[i-1]){
-                        cnt++;
-                        state = down;
-                    }
-                    break;
-                case up:
-                    if(nums[i]<nums[i-1]){
-                        cnt++;
-                        state = down;
-                    }
-                    break;
-                case down:
-                    if(nums[i]>nums[i-1]){
-                        cnt++;
-                        state = up;
-                    }
-                    break;
+        for(int i =1;i<n;i++){
+            int dif = nums[i] - nums[i-1];
+            if(dif >0 && predif <=0 ||
+                    dif <0 && predif >=0){
+                cnt++;
+                predif = dif;
             }
         }
-
-
         return cnt;
 
     }
