@@ -1,9 +1,12 @@
 package leetcode;
 
-import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class lc215 {
+    // [left,right] 用pivot划分并返回切分点
+
+
+
     private static int findKthLargest(int[] nums,int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         for(int val : nums){
@@ -37,15 +40,12 @@ public class lc215 {
         int i = l;
         int j = r+1;
         while(true){
-            while(i<r&&nums[++i]<nums[l]);
-            while(j>l&&nums[l]<nums[--j]);
+            while(++i<r&&nums[i]<nums[l]);
+            while(--j>l&&nums[l]<nums[j]);
             if(i>=j)break;
-            System.out.println("i: "+i+" j:"+j);
 
             swap(nums,i,j);
-            System.out.println(Arrays.toString(nums));
         }
-        System.out.println("i: "+i+" j:"+j);
         swap(nums,l,j);
         return j;
     }
