@@ -1,5 +1,6 @@
 package leetcode;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,24 +10,23 @@ public class lc316 {
         int[] cnt = new int[26];
         List<Character> arr = new ArrayList<>();
 
-        for(char c : s.toCharArray()){
-            if(cnt[c-'a'] == 0){
+        for (char c : s.toCharArray()) {
+            if (cnt[c - 'a'] == 0) {
                 arr.add(c);
-            }else if(cnt[c-'a'] >0)
-            {
+            } else if (cnt[c - 'a'] > 0) {
                 int idx = arr.indexOf(c);
-                if(idx<arr.size()-1 && arr.get(idx+1)<c){
+                if (idx < arr.size() - 1 && arr.get(idx + 1) < c) {
                     arr.remove(idx);
                     arr.add(c);
-                }else continue;
+                } else continue;
             }
 
-                cnt[c-'a']++;
+            cnt[c - 'a']++;
 
         }
         StringBuilder sb = new StringBuilder();
-        for(Character c: arr){
-           sb.append(c);
+        for (Character c : arr) {
+            sb.append(c);
         }
         return sb.toString();
     }
@@ -37,3 +37,4 @@ public class lc316 {
         System.out.println(sl.removeDuplicateLetters(str));
     }
 }
+
