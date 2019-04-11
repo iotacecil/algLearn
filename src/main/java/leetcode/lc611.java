@@ -17,12 +17,14 @@ public class lc611 {
     public int triangleNumber(int[] nums) {
         int cnt = 0;
         Arrays.sort(nums);
-        for (int i = 0; i <nums.length-2 ; i++) {
-            int k = i+2;
-            for (int j = i+1; j <nums.length-1&&nums[i]!=0 ; j++) {
-                //两边之和>k
-                while (k<nums.length&&nums[i]+nums[j]>nums[k])k++;
-                cnt+=(k-1-j);
+        int n = nums.length;
+        for (int i = n-1; i >1 ; i--) {
+            int l = 0,r = i-1;
+            while (l<r){
+                if(nums[l] + nums[r] >nums[i]){
+                    cnt += r-l;
+                    r--;
+                }else l++;
             }
         }
         return cnt;

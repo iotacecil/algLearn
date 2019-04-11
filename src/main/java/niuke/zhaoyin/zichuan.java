@@ -1,4 +1,4 @@
-package niuke.zhaohang;
+package niuke.zhaoyin;
 
 import java.util.Scanner;
 
