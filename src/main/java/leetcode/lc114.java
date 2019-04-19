@@ -4,6 +4,16 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class lc114 {
+    TreeNode prev = null;
+    public void flat(TreeNode root){
+        if(root == null)return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
+    }
+
     Deque<TreeNode> stk = new ArrayDeque<TreeNode>();
 
     public void flatten2(TreeNode root) {
