@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class fama {
 
+
     public static int fama(int n, int[] weight, int[] nums) {
         int sum = 0;
         for (int i = 0; i < n; i++) {
@@ -29,6 +30,7 @@ public class fama {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
+
         int[] fa = new int[n];
 
         for (int i = 0; i < n; i++) {
@@ -40,5 +42,7 @@ public class fama {
             num[i] = sc.nextInt();
         }
         System.out.println(fama(n, fa, num));
+
+
     }
 }
