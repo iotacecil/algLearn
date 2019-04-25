@@ -4,24 +4,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+class pair3 {
+    //从a到b的边，权值是w
+    public int w,a,b;
+
+    public pair3(int w, int a, int b) {
+        this.w = w;
+        this.a = a;
+        this.b = b;
+    }
+
+}
 
 public class krus {
-    int find(int x){
+    static int find(int x){
         if(fathers[x]==x)return x;
         return find(fathers[x]);
     }
-    void unit(int x,int y){
+    static void unit(int x,int y){
         int fx = find(x);
         int fy = find(y);
         fathers[fx]=fy;
     }
-    int[] fathers = new int[100];
+    static int[] fathers = new int[5001];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        krus samp = new krus();
+//        krus samp = new krus();
         for (int i = 0; i <100 ; i++) {
-            samp.fathers[i]=i;
+            fathers[i]=i;
         }
         int n,m;
         int a,b,w;
@@ -47,10 +58,10 @@ public class krus {
             a = edges.get(mst_ni).a;
             b = edges.get(mst_ni).b;
             w = edges.get(mst_ni).w;
-            if(samp.find(a)!=samp.find(b)){
-                samp.unit(a,b);
+            if(find(a)!=find(b)){
+                unit(a,b);
                 mst_weight+=w;
-                System.out.println(a+" "+b+" "+w);
+
                 mst_edges++;
             }
             mst_ni++;
