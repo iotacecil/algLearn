@@ -7,6 +7,7 @@ public class lc968 {
         return need;
     }
     private int dfs(TreeNode root){
+
         if(root == null)return 2;
         int left = dfs(root.left);
         int right = dfs(root.right);
