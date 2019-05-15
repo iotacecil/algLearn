@@ -6,12 +6,14 @@ import java.util.Deque;
 import java.util.PriorityQueue;
 
 public class lc239 {
+
     public int[] maxSlidingWindow3(int[] nums, int k) {
         if(nums == null || k <=0)return new int[0];
         int n = nums.length;
         int[] rst = new int[n-k+1];
         int cnt = 0;
         Deque<Integer> q = new ArrayDeque<>();
+
         for (int i = 0; i <nums.length ; i++) {
             // 如果这个index在窗口之前了 删除
             while (!q.isEmpty() && q.peek() < i - k + 1){
