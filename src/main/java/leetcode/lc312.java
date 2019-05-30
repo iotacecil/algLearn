@@ -5,6 +5,28 @@ import java.util.List;
 
 public class lc312
 {
+
+    public int maxCoinsDP(int[] nums) {
+        int n = nums.length;
+        int[] arr = new int[n+2];
+        int[][] dp = new int[n+2][n+2];
+        System.arraycopy(nums, 0, arr, 1, n);
+        arr[0] =1;
+        arr[n+1] = 1;
+        n = n+2;
+        // n+1个矩阵
+        for (int k = 2; k < n; k++) {
+            for(int left = 0;left <n-k;left++){
+                int right = left+k;
+                for (int i = left+1; i <right ; i++) {
+                    dp[left][right] = Math.max(dp[left][right],arr[left]*arr[i]*arr[right] + dp[left][i]+dp[i][right] );
+                }
+            }
+            
+        }
+        return dp[0][n-1];
+
+    }
     public int maxCoins(int[] nums) {
 
         int[] numsp = new int[nums.length + 2];
@@ -57,6 +79,6 @@ public class lc312
         public static void main(String[] args) {
         int[] balls = {3,1,5,8};
         lc312 sl = new lc312();
-        System.out.println(sl.findcoin(balls));
+        System.out.println(sl.maxCoinsDP(balls));
     }
 }
