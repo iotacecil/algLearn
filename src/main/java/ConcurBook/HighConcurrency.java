@@ -1,6 +1,10 @@
 package ConcurBook;
 
+
 public class HighConcurrency {
+    abstract static class c1 extends HighConcurrency{
+
+    }
     public static void main(String[] args) throws InterruptedException {
         final Thread t1 = new Thread(new Runnable() {
             @Override
