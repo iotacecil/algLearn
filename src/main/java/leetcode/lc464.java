@@ -16,6 +16,29 @@ public class lc464 {
 
     }
 
+    HashMap<Integer, Boolean> used = new HashMap<>();
+
+    public boolean canIWin2(int max, int total) {
+        if (used.containsKey(total)) return used.get(total);
+        if (total >= 0 && total <= max) {
+            used.put(total, true);
+            return true;
+        } else if (total < 0) {
+            used.put(total, false);
+
+            return false;
+        }
+        for (int i = 1; i <= max; i++) {
+            // 对方不能赢
+            if (!canIWin(max, total - i)) {
+                used.put(total, true);
+                return true;
+            }
+        }
+        used.put(total, false);
+        return false;
+    }
+
 
     private boolean canwin(int d,int visited){
 
@@ -69,7 +92,8 @@ public class lc464 {
 
     public static void main(String[] args) {
      lc464 sl = new lc464();
-        System.out.println(sl.canIWin(10, 11));
+        System.out.println(sl.canIWin2(10, 40));
+        System.out.println(sl.used);
 
     }
 
