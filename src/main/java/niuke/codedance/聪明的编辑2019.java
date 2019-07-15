@@ -3,85 +3,38 @@ package niuke.codedance;
 import java.util.Scanner;
 
 /*
+链接：https://www.nowcoder.com/questionTerminal/42852fd7045c442192fa89404ab42e92?orderByHotValue=0&mutiTagIds=134_665&page=1&onlyReference=false
+来源：牛客网
 
-
-
-qaaxxjjjttasdduuxxpccbbbeeeijjmyyrrrllxxkkknnezzzqqsqqqxxayyeenvveejjbbcccssyzzznnnsspyyyllllllqqqoouoonuuuunnnmsssvvksccmmmtttppjjvwnssnntttcctmmyyirazibbiigggkkhrrhvvtttcceeuuccktttfffctt
-
-输出
-qaaxjjtasdduxxpccbeeijjmyyrllxkknezzqsqqxayyenvvejjbccsyzznsspyylqqouoonuunmssvksccmttpjjvwnssnttctmmyirazibbiggkhrrhvvtcceuuckttfctt
-
-我的输出
-qaaxjjtasdduxxpccbeeijjmyyrllxkknezzqsxxayyenvvejjbccsyzznsspyylqqounnmssvksccmttpjjvwnssnttctmmyirazibbiggkhrrhvvtcceuuckttfctt
+1. 三个同样的字母连在一起，一定是拼写错误，去掉一个的就好啦：比如 helllo -> hello
+2. 两对一样的字母（AABB型）连在一起，一定是拼写错误，去掉第二对的一个字母就好啦：比如 helloo -> hello
+3. 上面的规则优先“从左到右”匹配，即如果是AABBCC，虽然AABB和BBCC都是错误拼写，应该优先考虑修复AABB，结果为AABCC
  */
 public class 聪明的编辑2019 {
+
+    public static String edit(String str){
+        StringBuilder sb = new StringBuilder();
+        int idx = 0;
+        for (int i = 0; i <str.length() ; i++) {
+           if(idx>=2&&str.charAt(i)==sb.charAt(idx-1)&&str.charAt(i)==sb.charAt(idx-2)){
+                continue;
+            }else if(idx>=3 && str.charAt(i)==sb.charAt(idx-1) && sb.charAt(idx-2) ==sb.charAt(idx-3)){
+                continue;
+            }else{
+               sb.append(str.charAt(i));
+               idx++;
+           }
+
+        }
+        return sb.toString();
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int nn = sc.nextInt();
-        for (int k = 0; k < nn; k++) {
-
+        for (int i = 0; i <nn ; i++) {
             String str = sc.next();
-            int n = str.length();
-            int a = 0;
-            int b = 0;
-            int c = 0;
-            int cnt = 0;
-            int idx = 0;
-            // aaabbbccc->aabbcc->aabcc
-            //wooo ooo ow->wooo oow->wooo ow->wooow->woow
-            //w ooo
-            char[] s = str.toCharArray();
-            int i = 0;
-            for (char ch : s) {
-                if (i < 2 || ch != s[i - 2]) {
-                    s[i++] = ch;
-                }
+            System.out.println(edit(str));
 
-            }
-            n = i;
-            //aabccdeecc
-            // 12345
-            //idx = 0;
-            //aabccc
-//aabbcc n = 6
-            i = 0;
-            for (int j = i; j < n - 5; j++) {
-                int j1 = j + 1;
-                int j2 = j + 2;
-                int j3 = j + 3;
-                int j4 = j + 4;
-                int j5 = j + 5;
-                if (s[j] == s[j1] && s[j2] == s[j3] && s[j4] == s[j5]) {
-                    s[j2] = ' ';
-                }
-            }
-            // System.out.println(s);
-            //aabb b 0 -> 4 n = 4
-            //woow n=4
-            StringBuilder sb = new StringBuilder();
-            int j = 0;
-            while (j < n - 3) {
-                int j1 = j + 1;
-                int j2 = j + 2;
-                int j3 = j + 3;
-
-                if (s[j] == s[j1] && s[j2] == s[j3]) {
-                    sb.append(s[j]);
-                    sb.append(s[j1]);
-                    sb.append(s[j2]);
-
-                    j += 4;
-                } else if (s[j] != ' ') {
-                    sb.append(s[j++]);
-                } else j++;
-            }
-            while (j < n) {
-                if (s[j] != ' ')
-                    sb.append(s[j++]);
-            }
-
-
-            System.out.println(sb.toString());
         }
 
     }

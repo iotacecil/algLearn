@@ -4,12 +4,11 @@ package niuke.codedance;
 2. 为了相互照应，我们决定相距最远的两名特工间的距离不超过D。
  */
 /*
-        9 33332
-        7 8 12 14 26 29 31 33 35
-        */
-//
+     ase通过率为80.00%
 
-import java.util.Arrays;
+ase通过率为80.00%
+*/
+
 import java.util.Scanner;
 
 public class 抓捕孔连顺2019 {
@@ -17,7 +16,7 @@ public class 抓捕孔连顺2019 {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int D = sc.nextInt();
-        int[] bd = new int[N];
+        long[] bd = new long[N];
         int idx = 0;
         for (int i = 0; i < N; i++) {
             int wz = sc.nextInt();
@@ -28,24 +27,31 @@ public class 抓捕孔连顺2019 {
         long mod = 99997867;
         // 1 2 3 4
         //[3,2,1,0] 右边有多少个在D 范围里的数字
-        int[] right = new int[N];
+        long[] right = new long[N];
         int i = 0;
+        long rst = 0;
+        // c32
+        // 2 3 4 ->2
+        // c21
+        //1    2 3 4 5
+        // 1
         int j = i + 2;
         while (i < N) {
-            while (j < N && bd[j] <= bd[i] + D) j++;
+            while (j < N && bd[j] <= bd[i] + D) {
+                j++;
+            }
             right[i] = j - 1 - i;
             i++;
 
         }
-        System.out.println(Arrays.toString(right));
+       // System.out.println(Arrays.toString(right));
 //        Arrays.sort(bd);
         //1+3 <=4 ok 1->2,3,4 n = 3 3*2/2=3
         //2+3 <=5 ok 2->3,4  n = 2  c22->
         //1 2 3 4 i = 0 j= 5
-        long rst = 0;
-        for (int cnt : right) {
+        for (long cnt : right) {
             if (cnt >= 2)
-                rst += (cnt * (cnt - 1) / 2 % mod);
+                rst = (rst + (cnt * (cnt - 1) / 2 % mod))%mod;
         }
 
 

@@ -23,6 +23,7 @@ public class lc440 {
     //n1 = 1 n2 = 2 //10 11   100  1 2->10 20
     private int getGap(int n,long n1,long n2){
         int gap = 0;
+
         while(n1 <= n){
             if(n2 >n){
                 //n = 13 n1*10 = 10  =3
@@ -33,9 +34,10 @@ public class lc440 {
             }
             n1 *=10;
             n2 *=10;
+            System.out.println("\t"+n1+" "+(n2)+" "+gap);
+
         }
 
-        System.out.println("\t"+n1+" "+(n2)+" "+gap);
         return gap;
     }
 
