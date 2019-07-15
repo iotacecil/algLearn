@@ -1,91 +1,53 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-abstract class c12 {
-    int a;
 
-}
-
-interface c123 {
-    int a = 0;
-
-}
-
-public class lc10 implements c123 {
-    public boolean isMatch2(String s, String p) {
-
-        int n1 = s.length();
-        int n2 = p.length();
-        boolean[][] dp = new boolean[n1 + 1][n2 + 1];
-        dp[0][0] = true;
-        for (int i = 1; i <= n1; i++) {
-            for (int j = 1; j <= n2; j++) {
-                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(i - 1) == '.') {
-                    dp[i][j] = dp[i - 1][j - 1];
-                } else if (p.charAt(j - 1) == '*') {
-                    //aaa   ac
-                    //aaa*  ab*c
-                    /*
-                     t c * a * b
-                     a     t
-                     a
-                     b
-
-                    */
-                    if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
-                        dp[i][j] = dp[i][j - 2];
-                    } else {
-                        dp[i][j] = dp[i - 1][j - 2];
-                    }
-                }
-                //1 p = 1 pp = 1
-                //
-                System.out.println(Arrays.deepToString(dp));
-            }
-        }
-        return dp[n1][n2];
-
-    }
-
+public class lc10 {
     public boolean isMatch(String s, String p) {
-        if(s==null||p==null)return false;
-        int slen = s.length();
-        int plen = p.length();
-        //取i,j长度匹配
-        boolean [][] dp  = new boolean[slen+1][plen+1];
-        dp[0][0]=true;
-        int j =1;
-        int i=1;
-        //a-. ->
-        //
-        while(i<slen){
+        int n = s.length();
+        int m = p.length();
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        dp[0][0] = true;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (dp[i - 1][j - 1] && (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.')) {
+                    dp[i][j] = true;
+                } else if (p.charAt(j - 1) == '*') {
 
-            if(s.charAt(i-1)==p.charAt(j-1)||p.charAt(j)=='.'){
-
-                dp[i][j++]=dp[i-1][j-1];
-
-            } else if(j>0&&p.charAt(j-1)=='*'){
-                char last=p.charAt(j-2);
-                while(i<=plen&&s.charAt(i-1)==last||p.charAt(i-1)=='.'){
-                    dp[i++][j]=dp[i][j-2];
-
+                    //aa a*
+                    if (j >= 2 && (dp[i - 1][j - 1] || dp[i - 1][j]) && (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.'))
+                        dp[i][j] = true;
+                    if (j >= 2 && dp[i - 1][j - 2])
+                        dp[i - 1][j] = true;
+                    if (j >= 2 && dp[i][j - 2])
+                        dp[i][j] = true;
+                    if (j >= 2 && dp[i][j - 1])
+                        dp[i][j] = true;
                 }
-                j++;
-
             }
         }
-        if(i>slen&&j<plen)return false;
-        return  dp[slen][plen];
-
-
+        System.out.println(Arrays.deepToString(dp));
+        return dp[n][m];
     }
 
     public static void main(String[] args) {
-        String s = "aab";
-        String p = "c*a*b";
+        List<Integer> list = new ArrayList<>();
         lc10 sl = new lc10();
-        System.out.println(sl.isMatch2(s, p));
+
+
+        // [1][3]=[1][1]
+        System.out.println(sl.isMatch("a",
+                "ab*"));
+//        String s = "/a/./b/../../c/";
+//        System.out.println(Arrays.toString(s.split("/")));
+//        System.out.println(s.replace("/", ""));
+//        String s = "aab";
+//        String p = "c*a*b";
+//        lc10 sl = new lc10();
+//        System.out.println(sl.isMatch2(s, p));
 //        System.out.println(s.matches());
 //            boolean dp [][] = new boolean[3][3];
 //            System.out.println(Arrays.toString(dp));

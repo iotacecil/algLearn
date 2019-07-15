@@ -4,33 +4,32 @@ public class lc4 {
     public double findMedianSortedArraysBSright(int[] nums1, int[] nums2) {
         int n1 = nums1.length;
         int n2 = nums2.length;
-        if(n1 > n2) return findMedianSortedArraysBSright(nums2, nums1);
+        if (n1 > n2) return findMedianSortedArraysBSright(nums2, nums1);
 
         int lo = 0, hi = n1;
-        while (lo <= hi){
+        while (lo <= hi) {
             // mid:短的那个
-            int partX = (lo + hi)/2;
-            int partY = (n1+n2+1)/2 - partX;
+            int partX = (lo + hi) / 2;
+            int partY = (n1 + n2 + 1) / 2 - partX;
             //L1<R2 && L2 < R1
-            /*
-            x1 x2 |  x3 x4 x5 x6
-            y1 y2 y3 y4 y5 |  y6 y7 y8
+                /*
+                x1 x2 |  x3 x4 x5 x6
+                y1 y2 y3 y4 y5 |  y6 y7 y8
 
-            x2（L1) <= y6(R2) && y5(L2)<= x3(R1)
-             */
-            double L1 = (partX == 0)?Integer.MIN_VALUE:nums1[partX-1];
-            double L2 = (partY == 0)?Integer.MIN_VALUE:nums2[partY-1];
-            double R1 = (partX == n1)?Integer.MAX_VALUE:nums1[partX];
-            double R2 = (partY == n2)?Integer.MAX_VALUE:nums2[partY];
+                x2（L1) <= y6(R2) && y5(L2)<= x3(R1)
+                 */
+            double L1 = (partX == 0) ? Integer.MIN_VALUE : nums1[partX - 1];
+            double L2 = (partY == 0) ? Integer.MIN_VALUE : nums2[partY - 1];
+            double R1 = (partX == n1) ? Integer.MAX_VALUE : nums1[partX];
+            double R2 = (partY == n2) ? Integer.MAX_VALUE : nums2[partY];
 
-            if(L1 <= R2 && L2 <= R1){
-                if((n1+n2) % 2 ==0){
-                    return (Math.max(L1,L2) + Math.min(R1, R2))/2.0;
-                }
-                else return Math.max(L1, L2);
-            }else if(L1 > R2){
+            if (L1 <= R2 && L2 <= R1) {
+                if ((n1 + n2) % 2 == 0) {
+                    return (Math.max(L1, L2) + Math.min(R1, R2)) / 2.0;
+                } else return Math.max(L1, L2);
+            } else if (L1 > R2) {
                 hi = partX - 1;
-            }else {
+            } else {
                 lo = partX + 1;
             }
         }
@@ -117,9 +116,39 @@ public class lc4 {
 
     }
 
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int l = 0;
+        int h = n;
+        while (l < h) {
+            // nums1取0~h个
+            int mid = l + (h - l) / 2;
+            int left1 = mid <= 0 ? Integer.MIN_VALUE : nums1[mid - 1];
+            int right1 = mid >= n ? Integer.MAX_VALUE : nums1[mid];
+            //中位数有n+m+1/2个
+            //2+2 / 2 =2
+            int y = (n + m + 1) / 2 - mid;
+            int left2 = y <= 0 ? Integer.MIN_VALUE : nums2[y - 1];
+            int right2 = y >= m ? Integer.MAX_VALUE : nums2[y];
+            if (left1 < right2 && left2 < right1) {
+                if ((n + m) % 2 == 0) {
+                    return (Math.max(left1, left2) + Math.min(right1, right2)) / 2;
+                } else {
+                    return Math.max(left1, left2);
+                }
+            } else if (left1 > right2) {
+                h = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+
+        }
+        return -1;
+    }
     public static void main(String[] args) {
-        int[] num1 = {1};
-        int[] num2 ={3,4,5,6,7,8,9,10};
-        System.out.println(new lc4().findMedianSortedArraysBSright(num1, num2));
+        int[] num1 = {2};
+        int[] num2 = {};
+        System.out.println(new lc4().findMedianSortedArrays2(num1, num2));
     }
 }
