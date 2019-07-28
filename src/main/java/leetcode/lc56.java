@@ -10,6 +10,7 @@ public class lc56 {
         int n = intervals.size();
         int[] starts = new int[n];
         int[] ends = new int[n];
+
         for (int i = 0; i < n; i++) {
             starts[i] = intervals.get(i).start;
             ends[i] = intervals.get(i).end;
@@ -31,6 +32,7 @@ public class lc56 {
         if(intervals==null||intervals.size()<2)return intervals;
         intervals.sort((a,b)->a.start-b.start);
         List<Interval> rst = new ArrayList<>();
+        
         for(Interval interval:intervals){
             if(rst.size()<1){
                 System.out.println(interval);
