@@ -1,4 +1,4 @@
-package meituan;
+package niuke.meituan;
 import java.util.Scanner;
 public class one {
 

@@ -1,19 +1,13 @@
-package meituan;
+package niuke.wangyi;
 
 import java.util.Scanner;
+//给一组数字，最少能由多少个数字异或出来。
+//思路是行行亦或
+public class 混合颜料 {
 
-public class mt02 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int m = sc.nextInt();
-        int k = sc.nextInt();
-        for (int i = 0; i < k ; i++) {
-
-
-        }
-
 
     }
-
 }

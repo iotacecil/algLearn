@@ -1,4 +1,4 @@
-package meituan;
+package niuke.meituan;
 
 import java.util.ArrayList;
 import java.util.List;
