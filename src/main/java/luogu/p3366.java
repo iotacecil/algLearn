@@ -68,17 +68,39 @@ public class p3366 {
 
     }
 
+    /*
+    5 6
+    1 2 0
+    1 3 0
+    4 5 0
+    3 2 10
+    1 4 6
+    3 5 2
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
-        maxm = m;
+        int k = sc.nextInt();
+        maxm = m + k;
         maxn = n;
         Edge[] es = new Edge[(maxm+1)<<1];
         int[] head = new int[maxn+1];
         int[] dis = new int[maxn+1];
         int cnt = 1;
-        for (int i = 0,u,v,w; i <m ; i++) {
+        for (int i = 0, u, v, w; i <m ; i++) {
+            u = sc.nextInt();
+            v = sc.nextInt();
+            w = 0;
+            add(es, u, v, w, cnt, head);
+            cnt++;
+
+            add(es, v, u, w, cnt, head);
+            cnt++;
+
+        }
+
+        for (int i = 0, u, v, w; i < k; i++) {
             u = sc.nextInt();
             v = sc.nextInt();
             w = sc.nextInt();

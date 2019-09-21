@@ -1,34 +1,47 @@
 package leetcode;
 
-import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.LinkedList;
 
+// 序列化二叉树
 public class lc297 {
-    StringBuilder sb = new StringBuilder();
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        sb.append("[");
-        Deque<TreeNode> que = new ArrayDeque<>();
-        que.add(root);
-        while(!que.isEmpty()){
-            TreeNode cur = que.poll();
-            if(cur.val==-1)sb.append("null");
-            sb.append(cur.val);
-            if(cur.left==null)
-                que.push(new TreeNode(-1));
-            else que.push(cur.left);
-            if(cur.right==null)
-                que.push(new TreeNode(-1));
-            else que.push(cur.right);
+    private static final String spliter = ",";
+    private static final String NN = "X";
 
-        }
-        return "";
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        buildString(root, sb);
+        return sb.toString();
     }
 
-    // Decodes your encoded data to tree.
-//    public TreeNode deserialize(String data) {
-//
-//    }
+    private void buildString(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append(NN).append(spliter);
+        } else {
+            sb.append(node.val).append(spliter);
+            buildString(node.left, sb);
+            buildString(node.right, sb);
+        }
+    }
+
+    public TreeNode deserialize(String data) {
+        Deque<String> nodes = new LinkedList<>();
+        nodes.addAll(Arrays.asList(data.split(spliter)));
+        return buildTree(nodes);
+    }
+
+    private TreeNode buildTree(Deque<String> nodes) {
+        String val = nodes.remove();
+        if (val.equals(NN)) return null;
+        else {
+            TreeNode node = new TreeNode(Integer.valueOf(val));
+            node.left = buildTree(nodes);
+            node.right = buildTree(nodes);
+            return node;
+        }
+    }
+
     public static void main(String[] args) {
 
     }
